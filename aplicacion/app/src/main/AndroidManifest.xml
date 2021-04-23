@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LMADDOUBTS">
         <activity android:name=".SingInActivity"></activity>
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
