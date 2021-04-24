@@ -21,6 +21,7 @@
             android:layout_height="100dp">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="50dp"
@@ -35,6 +36,21 @@
 
             </androidx.cardview.widget.CardView>
 
+            <EditText
+                android:id="@+id/editTextTextMultiLine"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Create post..."
+                android:inputType="textMultiLine"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cardView3"
+                app:layout_constraintTop_toTopOf="@+id/cardView3" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -44,8 +60,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/border_radius"
         android:text="Post"
+        android:textStyle="bold"
         app:icon="@drawable/ic_baseline_send_24"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintStart_toEndOf="@+id/button3"
@@ -54,42 +72,34 @@
     <Button
         android:id="@+id/button3"
         style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:background="@drawable/border_radius"
         android:backgroundTint="#FFFFFF"
         android:text="Image"
-        android:textColor="#646568"
+        android:textColor="#FFFFFF"
         android:textSize="8sp"
         app:icon="@drawable/ic_baseline_image_24"
-        app:iconTint="   "
+
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintStart_toEndOf="@+id/button2" />
 
     <Button
         android:id="@+id/button2"
-        style="@style/Widget.AppCompat.Button.Small"
+        style="@android:style/Widget.Material.Light.Button.Inset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/border_radius"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@android:color/transparent"
         android:text="Video"
-        android:textColor="#646568"
+        android:textColor="#FFFFFF"
         android:textSize="8sp"
         app:icon="@drawable/ic_baseline_videocam_24"
-        app:iconTint="   "
+
+
         app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="@+id/button3" />
-
-    <EditText
-        android:id="@+id/editTextTextMultiLine"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        tools:layout_editor_absoluteX="381dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
