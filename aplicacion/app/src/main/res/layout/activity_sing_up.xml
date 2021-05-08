@@ -27,9 +27,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
         android:ems="10"
+        android:hint="Email:"
         android:inputType="textEmailAddress"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,18 +45,19 @@
         android:layout_marginTop="50dp"
         android:text="Email"
         android:textColor="#FFA000"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="50dp" />
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/txt_loginPass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
+        android:hint="Password:"
         android:inputType="textPassword"
         android:textColor="#2B2B2B"
-        android:textColorHint="#FFFFFF"
+        android:textColorHint="?android:attr/textColorHint"
         app:layout_constraintEnd_toEndOf="@+id/txt_loginEmail"
         app:layout_constraintStart_toStartOf="@+id/txt_loginEmail"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -103,13 +105,14 @@
         android:layout_marginTop="15dp"
         android:text="Password"
         android:textColor="#FFA000"
-        app:layout_constraintTop_toBottomOf="@+id/txt_loginEmail"
-        tools:layout_editor_absoluteX="50dp" />
+        app:layout_constraintStart_toStartOf="@+id/txt_loginEmail"
+        app:layout_constraintTop_toBottomOf="@+id/txt_loginEmail" />
 
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:text="I agree to the Terms of Services and Privacy Policy"
         app:layout_constraintEnd_toEndOf="@+id/txt_loginPass"
         app:layout_constraintStart_toStartOf="@+id/txt_loginPass"
