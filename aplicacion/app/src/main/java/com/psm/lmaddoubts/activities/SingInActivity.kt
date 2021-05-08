@@ -3,6 +3,7 @@ package com.psm.lmaddoubts.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.psm.lmaddoubts.R
 
 
 class SingInActivity : AppCompatActivity() {
