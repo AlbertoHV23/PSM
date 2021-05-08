@@ -13,6 +13,11 @@
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.LMADDOUBTS.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
         </activity>
@@ -20,11 +25,7 @@
             android:theme="@style/Theme.LMADDOUBTS.NoActionBar"/>
         <activity android:name=".LoginActivity"
             android:theme="@style/Theme.LMADDOUBTS.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
     </application>

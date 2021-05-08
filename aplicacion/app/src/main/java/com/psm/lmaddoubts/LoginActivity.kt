@@ -17,10 +17,12 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         //BOTONOES
         val btn_activitySignIn:Button = findViewById(R.id.btn_activitySignIn)
+
         val btn_logear:Button = findViewById(R.id.btn_logear)
         //EDITTEXT
         txt_email = findViewById(R.id.txt_loginEmail)
         txt_pass = findViewById(R.id.txt_loginPass)
+
 
 
         btn_activitySignIn.setOnClickListener(){
