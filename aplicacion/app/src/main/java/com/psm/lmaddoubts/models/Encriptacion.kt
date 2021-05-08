@@ -1,7 +1,6 @@
-package com.psm.lmaddoubts
+package com.psm.lmaddoubts.models
 
 import android.util.Base64
-import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec

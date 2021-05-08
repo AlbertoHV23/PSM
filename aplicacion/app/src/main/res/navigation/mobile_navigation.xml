@@ -14,12 +14,12 @@
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.psm.lmaddoubts.ui.Published.PublishedFragment"
-        android:label="@string/menu_Published"
+        android:label="@string/menu_MyPosts"
         tools:layout="@layout/fragment_published" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.psm.lmaddoubts.ui.Notifications.NotificationsFragment"
-        android:label="@string/menu_Notifications"
-        tools:layout="@layout/fragment_notification" />
+        android:name="com.psm.lmaddoubts.ui.Categories.CategoriesFragment"
+        android:label="@string/menu_Categories"
+        tools:layout="@layout/fragment_categories" />
 </navigation>

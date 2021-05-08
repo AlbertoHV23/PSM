@@ -1,4 +1,4 @@
-package com.psm.lmaddoubts
+package com.psm.lmaddoubts.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.psm.lmaddoubts.models.Encriptacion
+import com.psm.lmaddoubts.R
 
 class LoginActivity : AppCompatActivity() {
     lateinit var txt_email:EditText
@@ -34,10 +36,10 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
-        val encriptado =  Encriptacion.cifar("hola","key123")
+        val encriptado = Encriptacion.cifar("hola", "key123")
         println("Mensaje encriptado: $encriptado")
 
-        val desincriptado =  Encriptacion.descifar(encriptado,"key123")
+        val desincriptado = Encriptacion.descifar(encriptado, "key123")
         println("Mensaje desincriptado: $desincriptado")
 
     }

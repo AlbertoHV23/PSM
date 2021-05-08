@@ -1,8 +1,9 @@
-package com.psm.lmaddoubts
+package com.psm.lmaddoubts.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+
 
 class SingInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

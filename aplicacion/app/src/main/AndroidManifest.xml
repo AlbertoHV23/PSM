@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LMADDOUBTS">
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.LMADDOUBTS.NoActionBar">
             <intent-filter>
@@ -21,9 +21,9 @@
 
 
         </activity>
-        <activity android:name=".SingInActivity"
+        <activity android:name=".activities.SingInActivity"
             android:theme="@style/Theme.LMADDOUBTS.NoActionBar"/>
-        <activity android:name=".LoginActivity"
+        <activity android:name=".activities.LoginActivity"
             android:theme="@style/Theme.LMADDOUBTS.NoActionBar">
 
 
