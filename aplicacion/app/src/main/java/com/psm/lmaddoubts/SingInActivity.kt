@@ -1,5 +1,6 @@
 package com.psm.lmaddoubts
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -14,5 +15,11 @@ class SingInActivity : AppCompatActivity() {
         btn_login.setOnClickListener(){
             onBackPressed()
         }
+    }
+
+    private  fun showHome(){
+        val intent: Intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+
     }
 }

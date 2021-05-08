@@ -21,27 +21,27 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/txt_PostVTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:text="9:00 am"
                 app:layout_constraintBottom_toBottomOf="@+id/cardView2"
-                app:layout_constraintStart_toStartOf="@+id/textView6"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                app:layout_constraintEnd_toEndOf="@+id/txt_PostVUser"
+                app:layout_constraintTop_toBottomOf="@+id/txt_PostVUser" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/txt_PostVPublicacion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="How can i accomodate the code whitout deleting line by line?"
-                app:layout_constraintEnd_toEndOf="@+id/textView6"
+                app:layout_constraintEnd_toEndOf="@+id/txt_PostVUser"
                 app:layout_constraintStart_toStartOf="@+id/cardView2"
                 app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/txt_PostVUser"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -54,10 +54,19 @@
                 app:layout_constraintStart_toEndOf="@+id/cardView2"
                 app:layout_constraintTop_toTopOf="@+id/cardView2" />
 
-            <Button
-                android:id="@+id/button"
+            <TextView
+                android:id="@+id/txt_PostVcategoria"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:text="Categoria"
+                android:textColor="@color/yellow"
+                app:layout_constraintStart_toStartOf="@+id/txt_PostVUser"
+                app:layout_constraintTop_toTopOf="@+id/txt_PostVTime" />
+
+            <Button
+                android:id="@+id/btn_like"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
                 android:background="@drawable/border_radius"
                 android:capitalize="none"
                 android:text="Me too"
@@ -70,9 +79,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/btn_share"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:background="@drawable/border_radius"
                 android:capitalize="none"
                 android:text="Share"
@@ -80,33 +89,33 @@
                 android:textSize="12sp"
                 app:icon="@drawable/ic_baseline_share_24"
                 app:iconTint="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="@+id/button4"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_comment"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/button4"
-                app:layout_constraintTop_toTopOf="@+id/button4" />
+                app:layout_constraintStart_toEndOf="@+id/btn_comment"
+                app:layout_constraintTop_toTopOf="@+id/btn_comment" />
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/img_postImagen"
                 android:layout_width="0dp"
                 android:layout_height="300dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/border_radius"
-                app:layout_constraintEnd_toEndOf="@+id/textView11"
+                app:layout_constraintEnd_toEndOf="@+id/txt_PostVPublicacion"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/textView11"
-                app:layout_constraintTop_toBottomOf="@+id/textView11"
+                app:layout_constraintStart_toStartOf="@+id/txt_PostVPublicacion"
+                app:layout_constraintTop_toBottomOf="@+id/txt_PostVPublicacion"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="100 doubts"
                 android:textColor="#000000"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/imageView5"
-                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+                app:layout_constraintStart_toStartOf="@+id/img_postImagen"
+                app:layout_constraintTop_toBottomOf="@+id/img_postImagen" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
@@ -119,16 +128,16 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/img_PostVAvatar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:srcCompat="@tools:sample/avatars" />
             </androidx.cardview.widget.CardView>
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btn_comment"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/border_radius"
                 android:capitalize="none"
@@ -137,9 +146,9 @@
                 android:textSize="12sp"
                 app:icon="@drawable/ic_baseline_comment_24"
                 app:iconTint="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="@+id/button"
-                app:layout_constraintStart_toEndOf="@+id/button"
-                app:layout_constraintTop_toTopOf="@+id/button" />
+                app:layout_constraintBottom_toBottomOf="@+id/btn_like"
+                app:layout_constraintStart_toEndOf="@+id/btn_like"
+                app:layout_constraintTop_toTopOf="@+id/btn_like" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
