@@ -7,6 +7,7 @@ class Usuarios{
 	public $publicacion;
 	public $imagen;
 	public $fecha;
+	public $likes;
 
 	function __construct($db){
 

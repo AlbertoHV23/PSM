@@ -8,7 +8,7 @@ namespace App;
 class Api{
 	private $db;
 	function __construct(){	
-			$this->db = new \PDO("mysql:host=localhost;dbname=leo;charset=utf8mb4", "root" , "314159" );	
+			$this->db = new \PDO("mysql:host=localhost;dbname=leonard9_test;charset=utf8mb4", "leonard9_test" , "Root210186@" );	
 	}
 	function read($name,$endpoint,$id){
 		 $aux = "\\App\\" . $name;
