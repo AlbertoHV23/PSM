@@ -32,10 +32,7 @@ class CategoriasC
     public function save_deleteCategorias($data)
     {
         $orm = new \App\Core\Model($this->db);
-        $instances = $this->get_categorias($data["id_categoria"]);
-        $instance = $instances[0];
-
-        return $orm->delete($instance, "tbl_categorias", "id_categoria", array("id_categoria" => "id_categoria", "nombre" => "nombre", "semestre" => "semestre"));
+        return $orm->delete();
     }
     public function save_categorias($data)
     {
