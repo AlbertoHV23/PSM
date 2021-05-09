@@ -14,7 +14,7 @@
             android:title="@string/menu_Published" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_baseline_notifications_24"
-            android:title="@string/menu_Notifications" />
+            android:icon="@drawable/ic_baseline_bookmarks_24"
+            android:title="@string/menu_Categories" />
     </group>
 </menu>

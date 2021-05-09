@@ -1,9 +1,10 @@
-package com.psm.lmaddoubts
+package com.psm.lmaddoubts.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.psm.lmaddoubts.R
 
 class SingInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
