@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Categorias">
+        <item>Metodología de la programación</item>
+        <item>Programación básica</item>
+        <item>Programación Avanzada</item>
+        <item>Programación Orientada a Objetos</item>
+        <item>Gráficas computacionales I</item>
+        <item>Modelos de administración de datos</item>
+        <item>Administración de alto volumen de datos</item>
+        <item>Gráficas computacionales II</item>
+        <item>Interface y experiencia de usuarios en web</item>
+        <item>Gráficas computacionales en web</item>
+        <item>Base de datos multimedia</item>
+        <item>Programación orientada a la internet</item>
+        <item>Programación web de capa intermedia</item>
+        <item>Programación de sistemas móviles</item>
+        <item>Programación web II</item>
+        <item>Procesamiento de imágenes</item>
+
+
+    </string-array>
+</resources>
