@@ -1,4 +1,4 @@
-package com.psm.lmaddoubts
+package com.psm.lmaddoubts.activities
 
 import android.os.Bundle
 import android.view.Menu
@@ -13,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.psm.lmaddoubts.R
 
 class HomeActivity : AppCompatActivity() {
 
