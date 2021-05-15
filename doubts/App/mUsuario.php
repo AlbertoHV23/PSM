@@ -1,13 +1,13 @@
 <?php 
 namespace App;
-class Usuarios{
+class mUsuario{
 	public $id_usuario;
 	public $nombre;
 	public $apellidos;
 	public $email;
-	public $contraseña;
+	public $contrasena;
 	public $avatar;
-
+    	
 	function __construct($db){
 
 	}

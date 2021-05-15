@@ -1,8 +1,10 @@
 <?php 
 namespace App;
-class Pais{
-	public $id;
+class mCategoria{
+	public $id_categoria;
 	public $nombre;
+	public $semestre;
+	
 	function __construct($db){
 
 	}
