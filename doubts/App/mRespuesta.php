@@ -1,11 +1,12 @@
 <?php 
 namespace App;
-class Respuesta{
-	public $id_comentarios;
+class mRespuesta{
+	public $id_respuesta;
 	public $fk_usuario;
+	public $fk_post;
 	public $respuesta;
 	public $fecha;
-
+	
 	function __construct($db){
 
 	}
