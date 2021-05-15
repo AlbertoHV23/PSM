@@ -16,12 +16,12 @@ CREATE TABLE IF NOT EXISTS tbl_categoria (
 );
 
 CREATE TABLE IF NOT EXISTS tbl_post (
-     id_post INT NOT NULL AUTO_INCREMENT,
+     id_post INT AUTO_INCREMENT,
      fk_usuario INT NOT NULL,
      fk_categoria INT NOT NULL,
      publicacion TEXT NOT NULL,
      imagen BLOB NULL,
-     fecha DATE NOT NULL,
+     fecha DATE  NULL,
      likes INT DEFAULT 0,
      PRIMARY KEY (id_post),
      FOREIGN KEY (fk_usuario) REFERENCES tbl_usuario(id_usuario),
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS tbl_respuesta (
      fk_usuario INT NOT NULL,
      fk_post INT NOT NULL,
      respuesta TEXT NOT NULL,
-     fecha DATE NOT NULL,
+     fecha DATE NULL,
      PRIMARY KEY (id_respuesta),
      FOREIGN KEY (fk_usuario) REFERENCES tbl_usuario(id_usuario),
      FOREIGN KEY (fk_post) REFERENCES tbl_post(id_post)
