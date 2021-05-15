@@ -15,3 +15,5 @@ INSERT INTO `tbl_categoria`( `nombre`, `semestre`) VALUES ("Programación web de
 INSERT INTO `tbl_categoria`( `nombre`, `semestre`) VALUES ("Programación de sistemas móviles", 7);
 INSERT INTO `tbl_categoria`( `nombre`, `semestre`) VALUES ("Programación web II", 8);
 INSERT INTO `tbl_categoria`( `nombre`, `semestre`) VALUES ("Procesamiento de imágenes", 8);
+
+INSERT INTO `tbl_post`(`id_post`, `fk_usuario`, `fk_categoria`, `publicacion`, `imagen`, `fecha`, `likes`) VALUES (null,1,1,"Mi primer post otravez",null,null,null);
