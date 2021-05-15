@@ -14,6 +14,10 @@ class LoginActivity : AppCompatActivity() {
     lateinit var txt_email:EditText
     lateinit var txt_pass:EditText
 
+    lateinit var email:String
+    lateinit var password:String
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -55,6 +59,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun ValidarRegistro(){
         if (txt_email.text.toString().isNotEmpty() || txt_pass.text.toString().isNotEmpty()){
+            email = txt_email.text.toString()
+            password = txt_pass.text.toString()
+            println(email)
+            println(password)
             showHome()
         }
         else{
