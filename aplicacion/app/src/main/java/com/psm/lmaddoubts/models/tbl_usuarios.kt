@@ -1,10 +1,10 @@
 package com.psm.lmaddoubts.models
 
-class tbl_usuarios(
-        var id_usuario: Int?,
-        var nombre:String,
-        var apellidos:String,
-        var email:String,
-        var contraseña:String,
-        var avatar:String) {
-}
+data class tbl_usuarios(
+        var id_usuario: Int ? =  null,
+        var nombre:String? =  null,
+        var apellidos:String? =  null,
+        var email:String? =  null,
+        var contrasena:String? =  null,
+        var avatar:String? =  null
+){}
