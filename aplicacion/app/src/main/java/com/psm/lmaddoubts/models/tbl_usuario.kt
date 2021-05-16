@@ -1,6 +1,6 @@
 package com.psm.lmaddoubts.models
 
-data class tbl_usuarios(
+data class tbl_usuario(
         var id_usuario: Int ? =  null,
         var nombre:String? =  null,
         var apellidos:String? =  null,
