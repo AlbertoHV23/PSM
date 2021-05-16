@@ -1,4 +1,5 @@
-package com.psm.lmaddoubts.models
+package com.psm.lmaddoubts
+
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -20,10 +21,10 @@ class RestEngine{
 
             val client =  OkHttpClient.Builder().addInterceptor(interceptor).build()
             val retrofit =  Retrofit.Builder()
-                    .baseUrl("http://leonardosantosgrc.com/doubts.api/") // tu url
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(client)
-                    .build()
+                .baseUrl("http://www.leonardosantosgrc.com/doubts.api/") // tu url
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
 
             return  retrofit
 

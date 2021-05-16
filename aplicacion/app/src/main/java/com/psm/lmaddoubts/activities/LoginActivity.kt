@@ -1,14 +1,26 @@
 package com.psm.lmaddoubts.activities
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.psm.lmaddoubts.R
+import com.psm.lmaddoubts.RestEngine
+import com.psm.lmaddoubts.Service
 import com.psm.lmaddoubts.models.Encriptacion
+import com.psm.lmaddoubts.models.tbl_usuario
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.ByteArrayOutputStream
 
 class LoginActivity : AppCompatActivity() {
     lateinit var txt_email:EditText
@@ -27,6 +39,8 @@ class LoginActivity : AppCompatActivity() {
         //EDITTEXT
         txt_email = findViewById(R.id.txt_loginEmail)
         txt_pass = findViewById(R.id.txt_loginPass)
+
+        getAlbums()
 
 
         btn_activitySignIn.setOnClickListener(){
@@ -83,5 +97,32 @@ class LoginActivity : AppCompatActivity() {
                 }.create()
 
         simpleDialog.show()
+    }
+
+
+
+    //OBTENER ALBUMS
+    private fun getAlbums(){
+        val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
+        val result: Call<List<tbl_usuario>> = service.getAlbums()
+
+        result.enqueue(object: Callback<List<tbl_usuario>> {
+
+            override fun onFailure(call: Call<List<tbl_usuario>>, t: Throwable){
+                Toast.makeText(this@LoginActivity,"Error",Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<List<tbl_usuario>>, response: Response<List<tbl_usuario>>){
+                val arrayItems =  response.body()
+                var strMessage:String =  ""
+                if (arrayItems != null){
+                    for (item in arrayItems!!){
+                        strMessage =  strMessage + item.id_usuario.toString() +  " - " + item.nombre + "\n"
+                    }
+                }
+
+                Toast.makeText(this@LoginActivity,"OK",Toast.LENGTH_LONG).show()
+            }
+        })
     }
 }
