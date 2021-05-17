@@ -21,10 +21,10 @@ class CategoriesAdapter(val context: Context, var LISTA:List<tbl_categorias>): R
             var txt_nombre:TextView = view?.findViewById(R.id.txt_ListaCategoria)
             var txt_semestre:TextView = view?.findViewById(R.id.txt_listaSemestre)
             if (superHero != null){
-                txt_nombre.text= superHero.categoria
+                txt_nombre.text= superHero.nombre
                 txt_semestre.text = superHero.semestre.toString() + "°"
 
-                Categoria = superHero.categoria
+                Categoria = superHero.nombre
 
 
             }

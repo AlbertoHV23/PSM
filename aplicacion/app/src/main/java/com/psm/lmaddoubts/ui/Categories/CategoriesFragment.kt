@@ -8,9 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.psm.lmaddoubts.CategoriasInterface
+import com.psm.lmaddoubts.PostInterface
 import com.psm.lmaddoubts.R
+import com.psm.lmaddoubts.RestEngine
 import com.psm.lmaddoubts.adadpters.CategoriesAdapter
+import com.psm.lmaddoubts.adadpters.HomeAdapter
 import com.psm.lmaddoubts.models.tbl_categorias
+import com.psm.lmaddoubts.models.tbl_post
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CategoriesFragment : Fragment() {
     var grupos :List<tbl_categorias> = listOf(
@@ -21,15 +29,14 @@ class CategoriesFragment : Fragment() {
 
     private var context2: Context? = null
     private var adapter: CategoriesAdapter? = null
+    lateinit var rvChat: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         var root =  inflater.inflate(R.layout.fragment_categories, container, false)
-
-        val rvChat: RecyclerView =root.findViewById(R.id.rv_listaCategorias)
+        getPost()
+        rvChat =root.findViewById(R.id.rv_listaCategorias)
         rvChat.layoutManager = LinearLayoutManager(this.context2!!)
-        this.adapter = CategoriesAdapter(this.context2!!, grupos)
-        rvChat.adapter = this.adapter
 
 
         return root
@@ -38,6 +45,32 @@ class CategoriesFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         this.context2 = context
+    }
+
+    //OBTENER USUARIOS
+    private fun getPost() {
+        val service: CategoriasInterface =  RestEngine.getRestEngine().create(CategoriasInterface::class.java)
+        val result: Call<List<tbl_categorias>> = service.getCategorias()
+
+        result.enqueue(object: Callback<List<tbl_categorias>> {
+
+            override fun onFailure(call: Call<List<tbl_categorias>>, t: Throwable){
+                //  Toast.makeText(this@HomeFragment,"Error", Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<List<tbl_categorias>>, response: Response<List<tbl_categorias>>) {
+                val arrayItems =  response.body()
+                if (arrayItems != null) {
+
+                    adapter = CategoriesAdapter(context2!!, arrayItems)
+                    rvChat.adapter = adapter
+
+                }
+
+
+            }
+        })
+
     }
 
 }
