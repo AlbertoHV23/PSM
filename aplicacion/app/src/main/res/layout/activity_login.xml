@@ -20,7 +20,7 @@
         tools:srcCompat="@drawable/doubts" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/nav_emails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
@@ -128,8 +128,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="Hi there! Nice to see you again."
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="@+id/nav_emails"
+        app:layout_constraintTop_toBottomOf="@+id/nav_emails" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
