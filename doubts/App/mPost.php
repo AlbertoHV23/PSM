@@ -8,8 +8,11 @@ class mPost{
 	public $imagen;
 	public $fecha;
     public $likes;
+	public $usuario_nombre;
+	public $usuario_apellidos;
+	public $categoria_nombre;
 	
-	function __construct($db){
+	function __construct(){
 
 	}
 }

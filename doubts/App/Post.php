@@ -98,7 +98,7 @@ class Post
                     "fk_categoria" => "fk_categoria",
                     "publicacion" => "publicacion",
                     "imagen" => "imagen",
-                    "fecha" =>"fecha",
+                    "fecha" => "fecha",
                     "likes" => "likes"));
         }
     }
@@ -117,5 +117,36 @@ class Post
         return array("mensaje" => $mensaje);
     }
 
+    function PostsCN()
+    {
+        $posts = [];
+        try {
+            $sentencia = $this->db->prepare("SELECT id_post,fk_usuario,fk_categoria,publicacion,imagen,fecha,likes,
+            tbl_usuario.nombre AS 'usuario_nombre',tbl_usuario.apellidos AS 'usuario_apellidos',tbl_categoria.nombre AS 'categoria_nombre' 
+            FROM tbl_post
+            INNER JOIN tbl_usuario on tbl_post.fk_usuario = tbl_usuario.id_usuario
+            inner JOIN tbl_categoria on tbl_post.fk_categoria = tbl_categoria.id_categoria");
+            $sentencia->execute();
+            while ($row = $sentencia->fetch()) {
+                $post = new mPost();
+                $post->id_post = $row['id_post'];
+                $post->fk_usuario = $row['fk_usuario'];
+                $post->fk_categoria = $row['fk_categoria'];
+                $post->publicacion = $row['publicacion'];
+                $post->imagen = $row['imagen'];
+                $post->fecha = $row['fecha'];
+                $post->likes = $row['likes'];
+                $post->usuario_nombre = $row['usuario_nombre'];
+                $post->usuario_apellidos = $row['usuario_apellidos'];
+                $post->categoria_nombre = $row['categoria_nombre'];
+                array_push($posts, $post);
+            }
+            return $posts;
+
+        } catch (PDOException $exc) {
+            return [];
+        }
+
+    }
+
 }
-?>
