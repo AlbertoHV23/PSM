@@ -1,5 +1,6 @@
 package com.psm.lmaddoubts.activities
 
+
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
@@ -10,9 +11,10 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import com.psm.lmaddoubts.R
 import com.psm.lmaddoubts.RestEngine
-import com.psm.lmaddoubts.Service
+import com.psm.lmaddoubts.UserService
 import com.psm.lmaddoubts.models.tbl_usuario
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,10 +23,9 @@ import java.io.ByteArrayOutputStream
 import java.util.*
 
 class SingInActivity : AppCompatActivity() {
-    var txtId: TextView? = null
-
     var imageUI:ImageView? =  null
     var imgArray:ByteArray? =  null
+    lateinit var USUARIOS:List<tbl_usuario>
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -42,6 +43,9 @@ class SingInActivity : AppCompatActivity() {
         val txt_loginPass: EditText = findViewById(R.id.txt_loginPass)
         imageUI =  findViewById(R.id.imgUI)
 
+       // getUsers()
+
+
 
         btn_login.setOnClickListener(){
             onBackPressed()
@@ -49,7 +53,7 @@ class SingInActivity : AppCompatActivity() {
 
         btn_registrar.setOnClickListener(){
             if (txt_name.text.toString().isEmpty() || txt_apellidos.text.toString().isEmpty()  || txt_loginEmail.text.toString().isEmpty()  ||txt_loginPass.text.toString().isEmpty() ){
-
+                ShowAlert("Error", "Empty requirements")
             }
             else{
                 var user:tbl_usuario = tbl_usuario(0,
@@ -58,7 +62,7 @@ class SingInActivity : AppCompatActivity() {
                         txt_loginEmail.text.toString(),
                         txt_loginPass.text.toString(),
                         null)
-                    saveAlbum(user)
+                saveUser(user)
             }
 
 
@@ -75,14 +79,27 @@ class SingInActivity : AppCompatActivity() {
     companion object {
 
         //image pick code
-        private val IMAGE_PICK_CODE = 1000;
+        private val IMAGE_PICK_CODE = 100;
         //Permission code
-        private val PERMISSION_CODE = 1001;
+        private val PERMISSION_CODE = 101;
         //camera code
-        private val CAMERA_CODE = 1002;
+        private val CAMERA_CODE = 102;
     }
 
-    private fun validarRegistro(){
+
+    fun ShowAlert(title: String, msg: String) {
+        val simpleDialog =  AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(msg)
+                .setIcon(R.drawable.ic_baseline_error_24)
+                .setPositiveButton("Retry"){ _, _ ->
+                    Toast.makeText(this, "Try again", Toast.LENGTH_LONG).show()
+                }
+                .setNegativeButton("Cancel"){ _, _->
+                    Toast.makeText(this, "Cancel add user", Toast.LENGTH_LONG).show()
+                }.create()
+
+        simpleDialog.show()
     }
 
     private fun openCamera(){
@@ -112,8 +129,31 @@ class SingInActivity : AppCompatActivity() {
         }
     }
 
+
+    //OBTENER USUARIOS
+    private fun getUsers(){
+        val service: UserService =  RestEngine.getRestEngine().create(UserService::class.java)
+        val result: Call<List<tbl_usuario>> = service.getUsuarios()
+
+        result.enqueue(object: Callback<List<tbl_usuario>> {
+
+            override fun onFailure(call: Call<List<tbl_usuario>>, t: Throwable){
+                Toast.makeText(this@SingInActivity,"Error",Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<List<tbl_usuario>>, response: Response<List<tbl_usuario>>){
+                val arrayItems =  response.body()
+                if (arrayItems != null) {
+                    USUARIOS = arrayItems
+                }
+
+                Toast.makeText(this@SingInActivity,"OK",Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun saveAlbum(user:tbl_usuario){
+    private fun saveUser(user:tbl_usuario){
 
         val encodedString:String =  Base64.getEncoder().encodeToString(this.imgArray)
 
@@ -123,19 +163,33 @@ class SingInActivity : AppCompatActivity() {
         // SI TU SERVICIO POST REQUIERE DOS PARAMETROS HACER UN OBJECTO CON ESOS DOS PARAMETROS
         user.avatar = strEncodeImage
 
-        val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
-        val result: Call<Int> = service.saveAlbum(user)
 
-        result.enqueue(object: Callback<Int> {
+        val service: UserService =  RestEngine.getRestEngine().create(UserService::class.java)
+        val result: Call<Int> = service.saveUsuarios(user)
+
+        result.enqueue(object: Callback<Int>{
             override fun onFailure(call: Call<Int>, t: Throwable) {
                 Toast.makeText(this@SingInActivity,"Error",Toast.LENGTH_LONG).show()
             }
 
             override fun onResponse(call: Call<Int>, response: Response<Int>) {
                 Toast.makeText(this@SingInActivity,"OK",Toast.LENGTH_LONG).show()
+
+                showHome(response.body().toString())
+
             }
         })
     }
+
+    private  fun showHome(id_user:String){
+        val intent:Intent = Intent(this, HomeActivity::class.java)
+        intent.putExtra("ID_USUARIO",id_user)
+        startActivity(intent)
+    }
+
+
+
+
 
 
 

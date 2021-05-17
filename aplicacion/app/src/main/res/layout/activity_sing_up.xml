@@ -16,7 +16,7 @@
         android:background="#2196F3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/nav_emails"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
@@ -29,7 +29,7 @@
         app:srcCompat="@drawable/ic_baseline_add_photo_alternate_24" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/nav_emails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -67,7 +67,7 @@
         android:layout_marginTop="10dp"
         android:text="Email"
         android:textColor="#FFA000"
-        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/nav_emails"
         app:layout_constraintTop_toBottomOf="@+id/txt_apellidos" />
 
     <TextView

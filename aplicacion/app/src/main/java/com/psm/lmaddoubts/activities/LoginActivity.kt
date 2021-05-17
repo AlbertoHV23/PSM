@@ -1,26 +1,20 @@
 package com.psm.lmaddoubts.activities
 
-import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.psm.lmaddoubts.R
 import com.psm.lmaddoubts.RestEngine
-import com.psm.lmaddoubts.Service
-import com.psm.lmaddoubts.models.Encriptacion
+import com.psm.lmaddoubts.UserService
 import com.psm.lmaddoubts.models.tbl_usuario
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.ByteArrayOutputStream
+import java.util.*
 
 class LoginActivity : AppCompatActivity() {
     lateinit var txt_email:EditText
@@ -28,6 +22,8 @@ class LoginActivity : AppCompatActivity() {
 
     lateinit var email:String
     lateinit var password:String
+
+     var USUARIOLOGEADO:List<tbl_usuario> = emptyList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +36,6 @@ class LoginActivity : AppCompatActivity() {
         txt_email = findViewById(R.id.txt_loginEmail)
         txt_pass = findViewById(R.id.txt_loginPass)
 
-        getAlbums()
 
 
         btn_activitySignIn.setOnClickListener(){
@@ -49,14 +44,13 @@ class LoginActivity : AppCompatActivity() {
 
         btn_logear.setOnClickListener(){
             ValidarRegistro()
+
+            //saveUser()
+
+
         }
 
 
-        val encriptado =  Encriptacion.cifar("hola","key123")
-        println("Mensaje encriptado: $encriptado")
-
-        val desincriptado =  Encriptacion.descifar(encriptado,"key123")
-        println("Mensaje desincriptado: $desincriptado")
 
     }
 
@@ -66,8 +60,9 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private  fun showHome(){
+    private  fun showHome(id_user:String){
         val intent:Intent = Intent(this, HomeActivity::class.java)
+        intent.putExtra("ID_USUARIO",id_user)
         startActivity(intent)
     }
 
@@ -75,9 +70,11 @@ class LoginActivity : AppCompatActivity() {
         if (txt_email.text.toString().isNotEmpty() || txt_pass.text.toString().isNotEmpty()){
             email = txt_email.text.toString()
             password = txt_pass.text.toString()
-            println(email)
-            println(password)
-            showHome()
+            UserLogin(email,password)
+
+
+            //showHome()
+
         }
         else{
             ShowAlert("Error", "Empty requirements")
@@ -101,28 +98,39 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-    //OBTENER ALBUMS
-    private fun getAlbums(){
-        val service: Service =  RestEngine.getRestEngine().create(Service::class.java)
-        val result: Call<List<tbl_usuario>> = service.getAlbums()
+    private fun UserLogin(email:String,pass:String){
 
-        result.enqueue(object: Callback<List<tbl_usuario>> {
+        var user: tbl_usuario = tbl_usuario(null,null,null,email,pass,null)
 
-            override fun onFailure(call: Call<List<tbl_usuario>>, t: Throwable){
-                Toast.makeText(this@LoginActivity,"Error",Toast.LENGTH_LONG).show()
+
+
+        val service: UserService =  RestEngine.getRestEngine().create(UserService::class.java)
+        val result: Call<List<tbl_usuario>> = service.getUserLogeado(user)
+
+        result.enqueue(object: Callback<List<tbl_usuario>>{
+
+
+            override fun onFailure(call: Call<List<tbl_usuario>>, t: Throwable) {
+                println("no $t")
             }
 
-            override fun onResponse(call: Call<List<tbl_usuario>>, response: Response<List<tbl_usuario>>){
-                val arrayItems =  response.body()
-                var strMessage:String =  ""
-                if (arrayItems != null){
-                    for (item in arrayItems!!){
-                        strMessage =  strMessage + item.id_usuario.toString() +  " - " + item.nombre + "\n"
-                    }
+            override fun onResponse(
+                call: Call<List<tbl_usuario>>,
+                response: Response<List<tbl_usuario>>
+            ) {
+                USUARIOLOGEADO = response.body()!!
+                if (USUARIOLOGEADO.isNotEmpty()){
+                    showHome(USUARIOLOGEADO.last().id_usuario.toString())
+                }
+                else{
+                    ShowAlert("Error", "email or password not found")
                 }
 
-                Toast.makeText(this@LoginActivity,"OK",Toast.LENGTH_LONG).show()
+
             }
         })
+
     }
+
+
 }
