@@ -22,16 +22,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txt_PostVTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:text="9:00 am"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView2"
-                app:layout_constraintEnd_toEndOf="@+id/txt_PostVUser"
-                app:layout_constraintTop_toBottomOf="@+id/txt_PostVUser" />
-
-            <TextView
                 android:id="@+id/txt_PostVPublicacion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -59,10 +49,11 @@
                 android:id="@+id/txt_PostVcategoria"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_marginTop="10dp"
                 android:text="Categoria"
                 android:textColor="@color/yellow"
                 app:layout_constraintStart_toStartOf="@+id/txt_PostVUser"
-                app:layout_constraintTop_toTopOf="@+id/txt_PostVTime" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_PostVUser" />
 
             <Button
                 android:id="@+id/btn_like"

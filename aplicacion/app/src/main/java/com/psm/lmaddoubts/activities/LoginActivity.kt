@@ -8,13 +8,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.psm.lmaddoubts.R
-import com.psm.lmaddoubts.RestEngine
-import com.psm.lmaddoubts.UserService
+import com.psm.lmaddoubts.Interface.RestEngine
+import com.psm.lmaddoubts.Interface.UserService
+import com.psm.lmaddoubts.models.sharedPreferences.Companion.pref
 import com.psm.lmaddoubts.models.tbl_usuario
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 class LoginActivity : AppCompatActivity() {
     lateinit var txt_email:EditText
@@ -48,11 +48,14 @@ class LoginActivity : AppCompatActivity() {
             //saveUser()
 
 
+
         }
 
 
 
     }
+
+
 
     private  fun showignIn(){
         val intent:Intent = Intent(this, SingInActivity::class.java)
@@ -62,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
 
     private  fun showHome(id_user:String){
         val intent:Intent = Intent(this, HomeActivity::class.java)
+//        pref.saveName(id_user)
         intent.putExtra("ID_USUARIO",id_user)
         startActivity(intent)
     }
@@ -118,8 +122,10 @@ class LoginActivity : AppCompatActivity() {
                 call: Call<List<tbl_usuario>>,
                 response: Response<List<tbl_usuario>>
             ) {
+
                 USUARIOLOGEADO = response.body()!!
                 if (USUARIOLOGEADO.isNotEmpty()){
+
                     showHome(USUARIOLOGEADO.last().id_usuario.toString())
                 }
                 else{

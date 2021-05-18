@@ -8,14 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.psm.lmaddoubts.CategoriasInterface
-import com.psm.lmaddoubts.PostInterface
+import com.psm.lmaddoubts.Interface.CategoriasInterface
 import com.psm.lmaddoubts.R
-import com.psm.lmaddoubts.RestEngine
+import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.adadpters.CategoriesAdapter
-import com.psm.lmaddoubts.adadpters.HomeAdapter
 import com.psm.lmaddoubts.models.tbl_categorias
-import com.psm.lmaddoubts.models.tbl_post
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

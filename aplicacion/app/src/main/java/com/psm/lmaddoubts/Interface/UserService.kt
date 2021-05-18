@@ -1,4 +1,4 @@
-package com.psm.lmaddoubts
+package com.psm.lmaddoubts.Interface
 
 import com.psm.lmaddoubts.models.tbl_usuario
 import retrofit2.Call

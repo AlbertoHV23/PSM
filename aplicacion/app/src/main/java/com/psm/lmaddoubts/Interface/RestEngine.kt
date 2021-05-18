@@ -1,4 +1,4 @@
-package com.psm.lmaddoubts
+package com.psm.lmaddoubts.Interface
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

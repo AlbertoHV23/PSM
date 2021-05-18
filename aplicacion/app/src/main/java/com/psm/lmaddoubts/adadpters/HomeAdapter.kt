@@ -29,6 +29,8 @@ class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): Recy
         fun render(superHero: tbl_publicaciones) {
             var txt_publicacion:TextView = view?.findViewById(R.id.txt_PostVPublicacion)
             var txt_nombreUusario:TextView = view?.findViewById(R.id.txt_PostVUser)
+            var txt_categoria:TextView = view?.findViewById(R.id.txt_PostVcategoria)
+
             txt_likes= view?.findViewById(R.id.textView9)
 
             btn_like= view?.findViewById(R.id.btn_like)
@@ -42,7 +44,10 @@ class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): Recy
             if (superHero != null){
                 txt_publicacion.text = superHero.publicacion
                 txt_likes.text = "$likes doubts"
-               // txt_publicacion.text = superHero.publicacion
+                txt_nombreUusario.text = "${superHero.usuario_nombre} ${superHero.usuario_apellidos}"
+                txt_categoria.text = superHero.categoria_nombre
+
+                // txt_publicacion.text = superHero.publicacion
 
 
 

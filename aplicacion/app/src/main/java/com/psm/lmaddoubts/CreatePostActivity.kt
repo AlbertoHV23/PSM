@@ -21,10 +21,11 @@ class CreatePostActivity : AppCompatActivity() {
         spinner.adapter = adapter
 
 
+
         spinner.onItemSelectedListener = object:
-        AdapterView.OnItemSelectedListener{
+                AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-               materia = lista[position]
+                materia = lista[position]
                 println(materia)
             }
 
@@ -32,7 +33,6 @@ class CreatePostActivity : AppCompatActivity() {
             }
 
         }
-
 
 
 

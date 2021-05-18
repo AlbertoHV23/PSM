@@ -13,8 +13,8 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.psm.lmaddoubts.R
-import com.psm.lmaddoubts.RestEngine
-import com.psm.lmaddoubts.UserService
+import com.psm.lmaddoubts.Interface.RestEngine
+import com.psm.lmaddoubts.Interface.UserService
 import com.psm.lmaddoubts.models.tbl_usuario
 import retrofit2.Call
 import retrofit2.Callback

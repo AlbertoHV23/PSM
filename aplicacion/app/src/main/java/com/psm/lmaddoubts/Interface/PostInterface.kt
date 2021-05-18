@@ -1,4 +1,4 @@
-package com.psm.lmaddoubts
+package com.psm.lmaddoubts.Interface
 
 import com.psm.lmaddoubts.models.tbl_post
 import com.psm.lmaddoubts.models.tbl_publicaciones
@@ -14,6 +14,11 @@ interface PostInterface {
     //Servicios para consumir el Album
     @GET("Post/PostsCN")
     fun getPublicaciones(): Call<List<tbl_publicaciones>>
+
+    @Headers("Content-Type: application/json")
+    @POST("Post/Save")
+    fun saveUsuarios(@Body albumData: tbl_post): Call<Int>
+
 
 
 }
