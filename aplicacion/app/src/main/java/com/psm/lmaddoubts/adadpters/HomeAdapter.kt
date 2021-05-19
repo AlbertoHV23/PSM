@@ -2,20 +2,14 @@
 package com.psm.lmaddoubts.adadpters
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.psm.lmaddoubts.CategoriaActivity
 import com.psm.lmaddoubts.R
-import com.psm.lmaddoubts.models.tbl_categorias
-import com.psm.lmaddoubts.models.tbl_post
 import com.psm.lmaddoubts.models.tbl_publicaciones
-import com.psm.lmaddoubts.models.tbl_usuario
 
 class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): RecyclerView.Adapter<HomeAdapter.Holder>() {
 

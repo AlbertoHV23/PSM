@@ -19,6 +19,9 @@ interface PostInterface {
     @POST("Post/Save")
     fun saveUsuarios(@Body albumData: tbl_post): Call<Int>
 
+    //Servicios para consumir el Album
+    @GET("Post/PostsPorCategoria")
+    fun getPostsCategory(): Call<List<tbl_publicaciones>>
 
 
 }
