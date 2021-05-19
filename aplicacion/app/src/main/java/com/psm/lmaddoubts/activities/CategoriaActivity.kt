@@ -10,6 +10,7 @@ import com.psm.lmaddoubts.Interface.PostInterface
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.R
 import com.psm.lmaddoubts.adadpters.PostCategoriaAdapter
+import com.psm.lmaddoubts.models.tbl_post
 import com.psm.lmaddoubts.models.tbl_publicaciones
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,7 +23,7 @@ class CategoriaActivity : AppCompatActivity() {
     var LISTAPublicaciones:List<tbl_publicaciones> = emptyList()
     lateinit var rvChat: RecyclerView
 
-    var id_categoria:Int = 0
+    var fk_categoria:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,16 +31,18 @@ class CategoriaActivity : AppCompatActivity() {
 
         rvChat=findViewById(R.id.rvPostCategory)
         rvChat.layoutManager = LinearLayoutManager(this)
-
         var categoria=  intent.getStringExtra("CATEGORIA")
-        id_categoria = intent.getIntExtra("ID_CATEGORIA",0)
+        fk_categoria = intent.getIntExtra("ID_CATEGORIA",0)
+        // Llamar categorias
+        getPublicaciones()
+
+
 
         var nameCa:TextView = findViewById(R.id.txt_ActividadCategoria)
 
         nameCa.text = categoria
 
-        // Llamar categorias
-        getPublicaciones()
+
 
 
     }
@@ -47,7 +50,8 @@ class CategoriaActivity : AppCompatActivity() {
     //OBTENER PostCategorias
     private fun getPublicaciones() {
         val service: PostInterface =  RestEngine.getRestEngine().create(PostInterface::class.java)
-        val result: Call<List<tbl_publicaciones>> = service.getCategoriaId(id_categoria)
+        var json = tbl_publicaciones(0,0,fk_categoria,"","null","null",0,"",",","")
+        val result: Call<List<tbl_publicaciones>> = service.getCategoriaId(json)
 
         result.enqueue(object: Callback<List<tbl_publicaciones>> {
 
@@ -60,6 +64,7 @@ class CategoriaActivity : AppCompatActivity() {
                 if (arrayItems != null) {
                     //LISTAPublicaciones = arrayItems
                     // getpublicaciones(arrayItems)
+                        println("ff" + response.body())
                     adapter = PostCategoriaAdapter(this, arrayItems)
                     rvChat.adapter = adapter
 
