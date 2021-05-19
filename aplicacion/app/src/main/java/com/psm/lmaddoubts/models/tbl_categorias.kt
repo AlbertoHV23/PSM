@@ -1,3 +1,3 @@
 package com.psm.lmaddoubts.models
 
-data class tbl_categorias(var id:Int, var nombre:String, var semestre:Int)
+data class tbl_categorias(var id_categoria:Int, var nombre:String, var semestre:Int)

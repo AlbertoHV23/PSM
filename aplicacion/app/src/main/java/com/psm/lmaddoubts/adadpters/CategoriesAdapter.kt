@@ -26,7 +26,7 @@ class CategoriesAdapter(val context: Context, var LISTA:List<tbl_categorias>): R
                 txt_semestre.text = superHero.semestre.toString() + "°"
 
                 Categoria = superHero.nombre
-                id_categoia = superHero.id
+                id_categoia = superHero.id_categoria
 
 
             }
@@ -43,7 +43,7 @@ class CategoriesAdapter(val context: Context, var LISTA:List<tbl_categorias>): R
                 R.id.item_categoria -> {
                     val  activityIntent =  Intent(context, CategoriaActivity::class.java)
                     activityIntent.putExtra("CATEGORIA",this.Categoria)
-                    activityIntent.putExtra("ID_CATEGOTIA", this.id_categoia)
+                    activityIntent.putExtra("ID_CATEGORIA", this.id_categoia)
                     context.startActivity(activityIntent)
                 }
             }

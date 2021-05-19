@@ -23,5 +23,7 @@ interface PostInterface {
     @GET("Post/PostsPorCategoria")
     fun getPostsCategory(): Call<List<tbl_publicaciones>>
 
+    @GET("Post/PostsPorCategoria/{id}")
+    fun getCategoriaId(@Path("id") id: Int): Call<List<tbl_publicaciones>>
 
 }

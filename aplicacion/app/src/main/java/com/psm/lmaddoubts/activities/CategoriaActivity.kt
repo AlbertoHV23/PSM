@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.psm.lmaddoubts.Interface.PostInterface
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.R
-import com.psm.lmaddoubts.adadpters.HomeAdapter
+import com.psm.lmaddoubts.adadpters.PostCategoriaAdapter
 import com.psm.lmaddoubts.models.tbl_publicaciones
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,7 +18,7 @@ import retrofit2.Response
 class CategoriaActivity : AppCompatActivity() {
 
     private var context2: Context? = null
-    private var adapter: HomeAdapter? = null
+    private var adapter: PostCategoriaAdapter? = null
     var LISTAPublicaciones:List<tbl_publicaciones> = emptyList()
     lateinit var rvChat: RecyclerView
 
@@ -34,10 +34,12 @@ class CategoriaActivity : AppCompatActivity() {
         var categoria=  intent.getStringExtra("CATEGORIA")
         id_categoria = intent.getIntExtra("ID_CATEGORIA",0)
 
-
         var nameCa:TextView = findViewById(R.id.txt_ActividadCategoria)
 
         nameCa.text = categoria
+
+        // Llamar categorias
+        getPublicaciones()
 
 
     }
@@ -45,7 +47,7 @@ class CategoriaActivity : AppCompatActivity() {
     //OBTENER PostCategorias
     private fun getPublicaciones() {
         val service: PostInterface =  RestEngine.getRestEngine().create(PostInterface::class.java)
-        val result: Call<List<tbl_publicaciones>> = service.getPostsCategory()
+        val result: Call<List<tbl_publicaciones>> = service.getCategoriaId(id_categoria)
 
         result.enqueue(object: Callback<List<tbl_publicaciones>> {
 
@@ -58,7 +60,7 @@ class CategoriaActivity : AppCompatActivity() {
                 if (arrayItems != null) {
                     //LISTAPublicaciones = arrayItems
                     // getpublicaciones(arrayItems)
-                    adapter = HomeAdapter(context2!!, arrayItems)
+                    adapter = PostCategoriaAdapter(this, arrayItems)
                     rvChat.adapter = adapter
 
                 }
