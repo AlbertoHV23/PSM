@@ -10,6 +10,7 @@ class mPost{
     public $likes;
 	public $usuario_nombre;
 	public $usuario_apellidos;
+	public $imagen_perfil;
 	public $categoria_nombre;
 	
 	function __construct(){
