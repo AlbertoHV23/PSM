@@ -124,8 +124,8 @@ class Post
             $sentencia = $this->db->prepare("SELECT id_post,fk_usuario,fk_categoria,publicacion,imagen,fecha,likes,
             tbl_usuario.nombre AS 'usuario_nombre',
             tbl_usuario.apellidos AS 'usuario_apellidos',
-            tbl_usuario.avatar AS 'imagen_perfil',
-            tbl_categoria.nombre AS 'categoria_nombre' 
+            tbl_categoria.nombre AS 'categoria_nombre', 
+            tbl_usuario.avatar AS 'imagen_perfil'
             FROM tbl_post
             INNER JOIN tbl_usuario on tbl_post.fk_usuario = tbl_usuario.id_usuario
             inner JOIN tbl_categoria on tbl_post.fk_categoria = tbl_categoria.id_categoria");
@@ -136,12 +136,12 @@ class Post
                 $post->fk_usuario = $row['fk_usuario'];
                 $post->fk_categoria = $row['fk_categoria'];
                 $post->publicacion = $row['publicacion'];
-                $post->imagen = $row['imagen'];
+                $post->imagen = !empty($row['imagen']) ? "data:image/png;base64," . base64_encode($row['imagen']) : $row['imagen'];
                 $post->fecha = $row['fecha'];
                 $post->likes = $row['likes'];
                 $post->usuario_nombre = $row['usuario_nombre'];
                 $post->usuario_apellidos = $row['usuario_apellidos'];
-                $post->imagen_perfil = $row['imagen_perfil'];
+                $post->imagen_perfil = "data:image/png;base64," . base64_encode($row['imagen_perfil']);
                 $post->categoria_nombre = $row['categoria_nombre'];
                 array_push($posts, $post);
             }
@@ -157,9 +157,12 @@ class Post
     {
         $posts = [];
         try {
-            $sentencia = $this->db->prepare("SELECT id_post,fk_usuario,fk_categoria,publicacion,imagen,
-            fecha,likes,tbl_usuario.nombre AS 'usuario_nombre',tbl_usuario.apellidos AS 'usuario_apellidos',
-            tbl_usuario.avatar AS 'imagen_perfil', tbl_categoria.nombre AS 'categoria_nombre' FROM tbl_post 
+            $sentencia = $this->db->prepare("SELECT id_post,fk_usuario,fk_categoria,publicacion,imagen,fecha,likes,
+            tbl_usuario.nombre AS 'usuario_nombre',
+            tbl_usuario.apellidos AS 'usuario_apellidos',
+            tbl_categoria.nombre AS 'categoria_nombre',
+            tbl_usuario.avatar AS 'imagen_perfil' 
+            FROM tbl_post 
             INNER JOIN tbl_usuario on tbl_post.fk_usuario = tbl_usuario.id_usuario 
             INNER JOIN tbl_categoria on tbl_post.fk_categoria = tbl_categoria.id_categoria 
             WHERE fk_usuario = ?");
@@ -171,14 +174,15 @@ class Post
                 $post->fk_usuario = $row['fk_usuario'];
                 $post->fk_categoria = $row['fk_categoria'];
                 $post->publicacion = $row['publicacion'];
-                $post->imagen = $row['imagen'];
+                $post->imagen = !empty($row['imagen']) ? "data:image/png;base64," . base64_encode($row['imagen']) : $row['imagen'];
                 $post->fecha = $row['fecha'];
                 $post->likes = $row['likes'];
                 $post->usuario_nombre = $row['usuario_nombre'];
                 $post->usuario_apellidos = $row['usuario_apellidos'];
-                $post->imagen_perfil = $row['imagen_perfil'];
+                $post->imagen_perfil = "data:image/png;base64," . base64_encode($row['imagen_perfil']);
                 $post->categoria_nombre = $row['categoria_nombre'];
                 array_push($posts, $post);
+
             }
             return $posts;
 
@@ -192,7 +196,11 @@ class Post
         $posts = [];
         try {
             $sentencia = $this->db->prepare("SELECT id_post,fk_usuario,fk_categoria,publicacion,imagen,
-            fecha,likes,tbl_usuario.nombre AS 'usuario_nombre',tbl_usuario.apellidos AS 'usuario_apellidos',tbl_categoria.nombre AS 'categoria_nombre' 
+            fecha,likes,
+            tbl_usuario.nombre AS 'usuario_nombre',
+            tbl_usuario.apellidos AS 'usuario_apellidos',
+            tbl_categoria.nombre AS 'categoria_nombre', 
+            tbl_usuario.avatar AS 'imagen_perfil'
             FROM tbl_post 
             INNER JOIN tbl_usuario on tbl_post.fk_usuario = tbl_usuario.id_usuario 
             INNER JOIN tbl_categoria on tbl_post.fk_categoria = tbl_categoria.id_categoria 
@@ -205,11 +213,12 @@ class Post
                 $post->fk_usuario = $row['fk_usuario'];
                 $post->fk_categoria = $row['fk_categoria'];
                 $post->publicacion = $row['publicacion'];
-                $post->imagen = $row['imagen'];
+                $post->imagen = !empty($row['imagen']) ? "data:image/png;base64," . base64_encode($row['imagen']) : $row['imagen'];
                 $post->fecha = $row['fecha'];
                 $post->likes = $row['likes'];
                 $post->usuario_nombre = $row['usuario_nombre'];
                 $post->usuario_apellidos = $row['usuario_apellidos'];
+                $post->imagen_perfil = "data:image/png;base64," . base64_encode($row['imagen_perfil']);
                 $post->categoria_nombre = $row['categoria_nombre'];
                 array_push($posts, $post);
             }
