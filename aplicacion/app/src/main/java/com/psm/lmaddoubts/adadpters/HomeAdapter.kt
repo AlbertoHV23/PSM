@@ -2,6 +2,8 @@
 package com.psm.lmaddoubts.adadpters
 
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +11,21 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.psm.lmaddoubts.Interface.ImageUtilities
 import com.psm.lmaddoubts.Interface.PostInterface
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.R
+import com.psm.lmaddoubts.RespuestasActivity
+import com.psm.lmaddoubts.activities.SingInActivity
 import com.psm.lmaddoubts.models.tbl_post
 import com.psm.lmaddoubts.models.tbl_publicaciones
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): RecyclerView.Adapter<HomeAdapter.Holder>() {
 
@@ -27,8 +35,10 @@ class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): Recy
         var likes = 0
         lateinit var txt_likes:TextView
         lateinit var btn_like:Button
+        lateinit var btn_COMMENT:Button
         private lateinit var postTem:tbl_post
 
+        @RequiresApi(Build.VERSION_CODES.O)
         fun render(superHero: tbl_publicaciones) {
             var txt_publicacion:TextView = view?.findViewById(R.id.txt_PostVPublicacion)
             var txt_nombreUusario:TextView = view?.findViewById(R.id.txt_PostVUser)
@@ -40,11 +50,17 @@ class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): Recy
             txt_likes= view?.findViewById(R.id.textView9)
 
             btn_like= view?.findViewById(R.id.btn_like)
+            btn_COMMENT= view?.findViewById(R.id.btn_comment)
 
             btn_like.setOnClickListener(){
                 this.likes++
                 txt_likes.text = "$likes doubts"
             }
+
+            btn_COMMENT.setOnClickListener(){
+                showRespuestas()
+            }
+
 
 
             if (superHero != null){
@@ -55,8 +71,21 @@ class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): Recy
                 txt_categoria.text = superHero.categoria_nombre
                 this.likes = superHero.likes
 
-                if (superHero.avatar == null){
-                    post_imagen.setVisibility(View.INVISIBLE);
+
+                val strImage: String? = superHero.imagen_perfil?.replace("data:image/png;base64,","")
+                var byteArray =  Base64.getDecoder().decode(strImage)
+                avatar!!.setImageBitmap(ImageUtilities.getBitMapFromByteArray(byteArray))
+
+
+
+
+                if (superHero.imagen == null){
+                    post_imagen.setVisibility(View.GONE);
+                }
+                else{
+                    val strImage: String? = superHero.imagen?.replace("data:image/png;base64,","")
+                    var byteArray =  Base64.getDecoder().decode(strImage)
+                    avatar!!.setImageBitmap(ImageUtilities.getBitMapFromByteArray(byteArray))
                 }
 
 
@@ -91,6 +120,7 @@ class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): Recy
         return Holder(layoutInflater.inflate(R.layout.item_home,parent,false))
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.render(LISTA[position])
     }
@@ -125,5 +155,12 @@ class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): Recy
 
             }
         })
+    }
+
+
+    private  fun showRespuestas(){
+        val  activityIntent =  Intent(context, RespuestasActivity::class.java)
+        context.startActivity(activityIntent)
+
     }
 }

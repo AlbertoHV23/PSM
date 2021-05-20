@@ -62,7 +62,14 @@ class SingInActivity : AppCompatActivity() {
                         txt_loginEmail.text.toString(),
                         txt_loginPass.text.toString(),
                         null)
-                saveUser(user)
+
+                if (imgArray !=null){
+                    saveUser(user)
+                }
+                else{
+                    ShowAlert("Error", "Upload image")
+                }
+
             }
 
 
@@ -115,6 +122,7 @@ class SingInActivity : AppCompatActivity() {
             if (requestcode == CAMERA_CODE) {
 
                 val photo =  data?.extras?.get("data") as Bitmap
+                println(photo)
                 val stream = ByteArrayOutputStream()
                 //Bitmap.CompressFormat agregar el formato desado, estoy usando aqui jpeg
                 photo.compress(Bitmap.CompressFormat.JPEG, 100, stream)

@@ -23,9 +23,16 @@ interface PostInterface {
     @GET("Post/PostsPorCategoria")
     fun getPostsCategory(): Call<List<tbl_publicaciones>>
 
+    //TRAE TODOS LOS POST POR CATEGORIA
     @Headers("Content-Type: application/json")
     @POST("Post/PostsPorCategoria/{id}")
     //fun (@Path("id") id: Int): Call<List<tbl_publicaciones>>
     fun getCategoriaId(@Body albumData: tbl_publicaciones): Call<List<tbl_publicaciones>>
+
+    //TRAE TODOS LOS POST POR USUARIO
+    @Headers("Content-Type: application/json")
+    @POST("Post/PostsPorUsuario/{id}")
+    //fun (@Path("id") id: Int): Call<List<tbl_publicaciones>>
+    fun getPostUsuario(@Body albumData: tbl_publicaciones): Call<List<tbl_publicaciones>>
 
 }

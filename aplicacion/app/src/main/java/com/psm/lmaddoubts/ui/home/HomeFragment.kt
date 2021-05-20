@@ -91,6 +91,8 @@ class HomeFragment : Fragment() {
         bnt_postear.setOnClickListener(){
 
             var post = tbl_post(0,id_usuario_int,fk_categoria,txt_publicacion.text.toString(),null,null,0)
+            txt_publicacion.setText("")
+            Toast.makeText(this.context2, "Posted correctly", Toast.LENGTH_SHORT).show()
             saveUser(post)
         }
 
@@ -120,7 +122,8 @@ class HomeFragment : Fragment() {
                 val arrayItems =  response.body()
                 if (arrayItems != null) {
                     LISTAPublicaciones = arrayItems
-                   // getpublicaciones(arrayItems)
+                    println(arrayItems.size)
+
                     adapter = HomeAdapter(context2!!, arrayItems)
                     rvChat.adapter = adapter
 
