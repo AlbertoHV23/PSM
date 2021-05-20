@@ -8,14 +8,13 @@
     <application
         android:name=".models.sharedPreferences"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/doubts"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/doubts"
         android:supportsRtl="true"
         android:theme="@style/Theme.LMADDOUBTS"
         android:usesCleartextTraffic="true">
         <activity android:name=".RespuestasActivity"></activity>
-        <activity android:name=".activities.PostCategoryActivity" />
         <activity android:name=".CreatePostActivity" />
         <activity android:name=".activities.CategoriaActivity" />
         <activity

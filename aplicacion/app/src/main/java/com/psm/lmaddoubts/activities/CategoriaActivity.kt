@@ -27,6 +27,7 @@ class CategoriaActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_LOGIN)
         setContentView(R.layout.activity_categoria)
 
         rvChat=findViewById(R.id.rvPostCategory)
