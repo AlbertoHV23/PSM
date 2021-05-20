@@ -128,7 +128,8 @@ class Post
             tbl_usuario.avatar AS 'imagen_perfil'
             FROM tbl_post
             INNER JOIN tbl_usuario on tbl_post.fk_usuario = tbl_usuario.id_usuario
-            inner JOIN tbl_categoria on tbl_post.fk_categoria = tbl_categoria.id_categoria");
+            inner JOIN tbl_categoria on tbl_post.fk_categoria = tbl_categoria.id_categoria 
+            ORDER BY tbl_post.id_post DESC");
             $sentencia->execute();
             while ($row = $sentencia->fetch()) {
                 $post = new mPost();
@@ -226,6 +227,17 @@ class Post
 
         } catch (PDOException $exc) {
             return [];
+        }
+    }
+
+    function PostsLikes($datos){
+        try {
+            $sentencia = $this->db->prepare("UPDATE tbl_post SET likes = likes+1 WHERE id_post = ?");
+            $sentencia->bindParam(1, $datos['id_post']);
+            $sentencia->execute();
+            return 'Like agregado';
+        } catch (PDOException $exc) {
+            return 'Error al ejecutar la acción';
         }
     }
 
