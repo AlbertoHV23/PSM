@@ -68,6 +68,7 @@ class LoginActivity : AppCompatActivity() {
 //        pref.saveName(id_user)
         intent.putExtra("ID_USUARIO",id_user)
         startActivity(intent)
+        finish()
     }
 
     private fun ValidarRegistro(){

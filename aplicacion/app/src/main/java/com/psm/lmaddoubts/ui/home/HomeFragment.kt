@@ -89,9 +89,7 @@ class HomeFragment : Fragment() {
         }
 
         bnt_postear.setOnClickListener(){
-            println(txt_publicacion.text.toString())
-            println(fk_categoria)
-            println(id_usuario_int)
+
             var post = tbl_post(0,id_usuario_int,fk_categoria,txt_publicacion.text.toString(),null,null,0)
             saveUser(post)
         }

@@ -50,7 +50,7 @@ class CategoriaActivity : AppCompatActivity() {
     //OBTENER PostCategorias
     private fun getPublicaciones() {
         val service: PostInterface =  RestEngine.getRestEngine().create(PostInterface::class.java)
-        var json = tbl_publicaciones(0,0,fk_categoria,"","null","null",0,"",",","")
+        var json = tbl_publicaciones(0,0,fk_categoria,"","null","null",0,"",",","","")
         val result: Call<List<tbl_publicaciones>> = service.getCategoriaId(json)
 
         result.enqueue(object: Callback<List<tbl_publicaciones>> {

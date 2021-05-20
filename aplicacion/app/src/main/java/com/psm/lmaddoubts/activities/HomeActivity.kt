@@ -96,7 +96,6 @@ class HomeActivity : AppCompatActivity() {
         var imgarray:ImageView =  findViewById(R.id.imageView3)
         names.text = "${USUARIOS.nombre}  ${USUARIOS.apellidos}"
         emails.text = "${USUARIOS.email}  "
-        println(USUARIOS.avatar)
         var byteArray =  Base64.getDecoder().decode(USUARIOS.avatar)
         imgarray!!.setImageBitmap(ImageUtilities.getBitMapFromByteArray(byteArray))
 
@@ -126,7 +125,6 @@ class HomeActivity : AppCompatActivity() {
 
                 }
 
-                println(USUARIOS)
 
                 Toast.makeText(this@HomeActivity, "OK", Toast.LENGTH_LONG).show()
             }

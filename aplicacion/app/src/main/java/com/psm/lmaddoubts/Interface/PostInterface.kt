@@ -12,7 +12,7 @@ interface PostInterface {
     fun getPosts(): Call<List<tbl_post>>
 
     //Servicios para consumir el Album
-    @GET("Post/PostsCN")
+    @GET("Post/Posts")
     fun getPublicaciones(): Call<List<tbl_publicaciones>>
 
     @Headers("Content-Type: application/json")

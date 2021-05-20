@@ -185,6 +185,7 @@ class SingInActivity : AppCompatActivity() {
         val intent:Intent = Intent(this, HomeActivity::class.java)
         intent.putExtra("ID_USUARIO",id_user)
         startActivity(intent)
+        finish()
     }
 
 

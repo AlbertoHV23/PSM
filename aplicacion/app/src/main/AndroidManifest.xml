@@ -14,8 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LMADDOUBTS"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.PostCategoryActivity"></activity>
-        <activity android:name=".CreatePostActivity"></activity>
+        <activity android:name=".RespuestasActivity"></activity>
+        <activity android:name=".activities.PostCategoryActivity" />
+        <activity android:name=".CreatePostActivity" />
         <activity android:name=".activities.CategoriaActivity" />
         <activity
             android:name=".activities.HomeActivity"

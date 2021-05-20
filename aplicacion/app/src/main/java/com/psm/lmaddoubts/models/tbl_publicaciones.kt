@@ -10,5 +10,6 @@ data class tbl_publicaciones(
         var likes:Int,
         var usuario_nombre:String,
         var usuario_apellidos:String,
-        var categoria_nombre:String
+        var categoria_nombre:String,
+        var avatar:String?
 )
