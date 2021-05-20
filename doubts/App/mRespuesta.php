@@ -6,8 +6,9 @@ class mRespuesta{
 	public $fk_post;
 	public $respuesta;
 	public $fecha;
+	public $nombre_usuario;
 	
-	function __construct($db){
+	function __construct(){
 
 	}
 }

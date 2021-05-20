@@ -91,4 +91,31 @@ class Respuesta
         return array("mensaje" => $mensaje);
     }
 
+    function RespuestasCN()
+    {
+        $respuestas = [];
+        try {
+            $sentencia = $this->db->prepare("SELECT id_respuesta,fk_usuario,fk_post,respuesta,fecha,
+            tbl_usuario.nombre AS 'nombre_usuario'
+            FROM tbl_respuesta
+            INNER JOIN tbl_usuario on tbl_respuesta.fk_usuario = tbl_usuario.id_usuario");
+            $sentencia->execute();
+            while ($row = $sentencia->fetch()) {
+                $respuesta = new mRespuesta();
+                $respuesta->id_respuesta = $row['id_respuesta'];
+                $respuesta->fk_usuario = $row['fk_usuario'];
+                $respuesta->fk_post = $row['fk_post'];
+                $respuesta->respuesta = $row['respuesta'];
+                $respuesta->fecha = $row['fecha'];
+                $respuesta->nombre_usuario = $row['nombre_usuario'];
+                array_push($respuestas, $respuesta);
+            }
+            return $respuestas;
+
+        } catch (PDOException $exc) {
+            return [];
+        }
+
+    }
+
 }
