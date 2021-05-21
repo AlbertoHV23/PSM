@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.psm.lmaddoubts.Interface.PostInterface
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.R
+import com.psm.lmaddoubts.adadpters.HomeAdapter
 import com.psm.lmaddoubts.adadpters.PostCategoriaAdapter
 import com.psm.lmaddoubts.models.prefs
 import com.psm.lmaddoubts.models.sharedPreferences.Companion.pref
@@ -23,8 +24,9 @@ import retrofit2.Response
 
 class PublishedFragment : Fragment() {
     var fk_usuario:Int = 0
-    private var adapter: PostCategoriaAdapter? = null
+    private var adapter: HomeAdapter? = null
     lateinit var rvChat: RecyclerView
+    private var context2: Context? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         var root =  inflater.inflate(R.layout.fragment_published, container, false)
@@ -43,6 +45,12 @@ class PublishedFragment : Fragment() {
         return root
     }
 
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.context2 = context
+    }
+
     //OBTENER PostCategorias
     private fun getMisPublicaciones() {
         val service: PostInterface =  RestEngine.getRestEngine().create(PostInterface::class.java)
@@ -59,7 +67,7 @@ class PublishedFragment : Fragment() {
                 if (arrayItems != null) {
                     println(arrayItems)
 
-                    adapter = PostCategoriaAdapter(this, arrayItems)
+                    adapter = HomeAdapter(context2!!, arrayItems)
                     rvChat.adapter = adapter
 
                 }
