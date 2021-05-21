@@ -22,4 +22,10 @@
         android:name="com.psm.lmaddoubts.ui.Categories.CategoriesFragment"
         android:label="@string/menu_Categories"
         tools:layout="@layout/fragment_categories" />
+
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.psm.lmaddoubts.LogOutFragment"
+        android:label="Log Out"
+        tools:layout="@layout/fragment_log_out" />
 </navigation>

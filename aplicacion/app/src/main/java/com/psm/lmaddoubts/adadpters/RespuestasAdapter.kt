@@ -9,14 +9,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.psm.lmaddoubts.R
 import com.psm.lmaddoubts.models.tbl_categorias
+import com.psm.lmaddoubts.models.tbl_respuestas
 
-class RespuestasAdapter(val context: Context, var LISTA:List<tbl_categorias>): RecyclerView.Adapter<RespuestasAdapter.Holder>() {
+class RespuestasAdapter(val context: Context, var LISTA:List<tbl_respuestas>): RecyclerView.Adapter<RespuestasAdapter.Holder>() {
     inner class Holder(val view: View):RecyclerView.ViewHolder(view), View.OnClickListener{
 
-        fun render(superHero: tbl_categorias) {
+        fun render(superHero: tbl_respuestas) {
+
+            var name:TextView = view.findViewById(R.id.textView)
+            var mensaje:TextView = view.findViewById(R.id.textView11)
             if (superHero != null){
 
-
+                name.text = superHero.nombre_usuario
+                mensaje.text = superHero.respuesta
             }
 
 

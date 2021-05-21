@@ -1,20 +1,23 @@
 package com.psm.lmaddoubts.activities
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.psm.lmaddoubts.R
+import androidx.appcompat.app.AppCompatActivity
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.Interface.UserService
+import com.psm.lmaddoubts.R
 import com.psm.lmaddoubts.models.sharedPreferences.Companion.pref
 import com.psm.lmaddoubts.models.tbl_usuario
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class LoginActivity : AppCompatActivity() {
     lateinit var txt_email:EditText
@@ -29,12 +32,21 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        if (pref.getIdUsuario().toString().isNotEmpty()){
+            val intent:Intent = Intent(this, HomeActivity::class.java)
+            intent.putExtra("ID_USUARIO", pref.getIdUsuario())
+            startActivity(intent)
+            finish()
+
+        }
         //BOTONOES
         val btn_activitySignIn:Button = findViewById(R.id.btn_activitySignIn)
         val btn_logear:Button = findViewById(R.id.btn_logear)
         //EDITTEXT
         txt_email = findViewById(R.id.txt_loginEmail)
         txt_pass = findViewById(R.id.txt_loginPass)
+
 
 
 
@@ -63,10 +75,9 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private  fun showHome(id_user:String){
+    private  fun showHome(id_user: String){
         val intent:Intent = Intent(this, HomeActivity::class.java)
-//        pref.saveName(id_user)
-        intent.putExtra("ID_USUARIO",id_user)
+        intent.putExtra("ID_USUARIO", id_user)
         startActivity(intent)
         finish()
     }
@@ -75,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
         if (txt_email.text.toString().isNotEmpty() || txt_pass.text.toString().isNotEmpty()){
             email = txt_email.text.toString()
             password = txt_pass.text.toString()
-            UserLogin(email,password)
+            UserLogin(email, password)
 
 
             //showHome()
@@ -103,16 +114,16 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-    private fun UserLogin(email:String,pass:String){
+    private fun UserLogin(email: String, pass: String){
 
-        var user: tbl_usuario = tbl_usuario(null,null,null,email,pass,null)
+        var user: tbl_usuario = tbl_usuario(null, null, null, email, pass, null)
 
 
 
         val service: UserService =  RestEngine.getRestEngine().create(UserService::class.java)
         val result: Call<List<tbl_usuario>> = service.getUserLogeado(user)
 
-        result.enqueue(object: Callback<List<tbl_usuario>>{
+        result.enqueue(object : Callback<List<tbl_usuario>> {
 
 
             override fun onFailure(call: Call<List<tbl_usuario>>, t: Throwable) {
@@ -125,11 +136,10 @@ class LoginActivity : AppCompatActivity() {
             ) {
 
                 USUARIOLOGEADO = response.body()!!
-                if (USUARIOLOGEADO.isNotEmpty()){
+                if (USUARIOLOGEADO.isNotEmpty()) {
 
                     showHome(USUARIOLOGEADO.last().id_usuario.toString())
-                }
-                else{
+                } else {
                     ShowAlert("Error", "email or password not found")
                 }
 
