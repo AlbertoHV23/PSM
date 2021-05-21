@@ -52,13 +52,9 @@ class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): Recy
             btn_like= view?.findViewById(R.id.btn_like)
             btn_COMMENT= view?.findViewById(R.id.btn_comment)
 
-            btn_like.setOnClickListener(){
-                this.likes++
-                txt_likes.text = "$likes doubts"
-            }
 
             btn_COMMENT.setOnClickListener(){
-                showRespuestas()
+                showRespuestas(superHero)
             }
 
 
@@ -66,7 +62,7 @@ class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): Recy
             if (superHero != null){
                 this.postTem = tbl_post(superHero.id_post,superHero.fk_usuario,superHero.fk_categoria,superHero.publicacion,superHero.imagen,superHero.fecha,this.likes)
                 txt_publicacion.text = superHero.publicacion
-                txt_likes.text = "$likes doubts"
+                txt_likes.text = "${superHero.likes} doubts"
                 txt_nombreUusario.text = "${superHero.usuario_nombre} ${superHero.usuario_apellidos}"
                 txt_categoria.text = superHero.categoria_nombre
                 this.likes = superHero.likes
@@ -93,6 +89,14 @@ class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): Recy
 
             }
 
+            btn_like.setOnClickListener(){
+                this.likes++
+                txt_likes.text = "$likes doubts"
+                this.postTem.likes = likes
+                Like(this.postTem)
+            }
+
+
 
 
         }
@@ -103,11 +107,7 @@ class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): Recy
         override fun onClick(v: View?) {
             when(v!!.id){
                 R.id.btn_like -> {
-                  this.likes++
-                    txt_likes.text = "$likes doubts"
-                    println(this.postTem)
-                    //esta pendiente este
-                  //  saveUser(this.postTem)
+
                 }
 
             }
@@ -129,16 +129,7 @@ class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): Recy
         return LISTA.size
     }
 
-    private fun saveUser(user: tbl_post){
-
-        //val encodedString:String =  Base64.getEncoder().encodeToString(this.imgArray)
-
-        //val strEncodeImage:String = "data:image/png;base64," + encodedString
-
-        //SE CONSTRUYE EL OBJECTO A ENVIAR,  ESTO DEPENDE DE COMO CONSTRUYAS EL SERVICIO
-        // SI TU SERVICIO POST REQUIERE DOS PARAMETROS HACER UN OBJECTO CON ESOS DOS PARAMETROS
-        // user.avatar = strEncodeImage
-
+    private fun Like(user: tbl_post){
 
         val service: PostInterface =  RestEngine.getRestEngine().create(PostInterface::class.java)
         val result: Call<Int> = service.saveUsuarios(user)
@@ -158,8 +149,11 @@ class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): Recy
     }
 
 
-    private  fun showRespuestas(){
+    private  fun showRespuestas(post:tbl_publicaciones){
         val  activityIntent =  Intent(context, RespuestasActivity::class.java)
+        activityIntent.putExtra("ID_POST",post.id_post.toString())
+        activityIntent.putExtra("PUBLICACION", post.publicacion)
+        context.startActivity(activityIntent)
         context.startActivity(activityIntent)
 
     }

@@ -26,6 +26,7 @@ class SingInActivity : AppCompatActivity() {
     var imageUI:ImageView? =  null
     var imgArray:ByteArray? =  null
     lateinit var USUARIOS:List<tbl_usuario>
+    private val fileResult = 1
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -78,6 +79,7 @@ class SingInActivity : AppCompatActivity() {
 
         btn_opencam.setOnClickListener(){
             openCamera()
+            //filemanager()
         }
 
 
@@ -195,6 +197,20 @@ class SingInActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    private fun filemanager(){
+        //ABRE LA VENTA DEL FILENAMAGER PARA SELECCIONAR LA IMAGEN
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2 ){
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true)
+        }
+        intent.type = "*/*"
+        startActivityForResult(intent,fileResult)
+    }
+
+
+
+
 
 
 

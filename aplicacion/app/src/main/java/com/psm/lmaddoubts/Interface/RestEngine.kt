@@ -23,7 +23,7 @@ class RestEngine{
             val retrofit =  Retrofit.Builder()
                 .baseUrl("http://www.leonardosantosgrc.com/doubts.api/") // tu url
                 .addConverterFactory(GsonConverterFactory.create())
-               // .client(client)
+               //.client(client)
                 .build()
 
             return  retrofit
