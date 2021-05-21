@@ -11,10 +11,16 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.psm.lmaddoubts.Interface.ImageUtilities
+import com.psm.lmaddoubts.Interface.PostInterface
+import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.activities.CategoriaActivity
 import com.psm.lmaddoubts.R
+import com.psm.lmaddoubts.RespuestasActivity
+import com.psm.lmaddoubts.models.tbl_post
 import com.psm.lmaddoubts.models.tbl_publicaciones
+import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 class PostCategoriaAdapter(val context: Callback<List<tbl_publicaciones>>, var LISTA:List<tbl_publicaciones>): RecyclerView.Adapter<PostCategoriaAdapter.Holder>() {
@@ -23,6 +29,9 @@ class PostCategoriaAdapter(val context: Callback<List<tbl_publicaciones>>, var L
         var likes = 0
         lateinit var txt_likes:TextView
         lateinit var btn_like: Button
+        lateinit var btn_COMMENT:Button
+        private lateinit var postTem: tbl_post
+
 
 
         @RequiresApi(Build.VERSION_CODES.O)
@@ -38,14 +47,23 @@ class PostCategoriaAdapter(val context: Callback<List<tbl_publicaciones>>, var L
             txt_likes= view?.findViewById(R.id.textView9)
 
             btn_like= view?.findViewById(R.id.btn_like)
+            btn_COMMENT= view?.findViewById(R.id.btn_comment)
 
             btn_like.setOnClickListener(){
                 this.likes++
                 txt_likes.text = "$likes doubts"
+                this.postTem.likes = likes
+                Like(this.postTem)
+            }
+
+            btn_COMMENT.setOnClickListener(){
+
             }
 
 
+
             if (superHero != null){
+                this.postTem = tbl_post(superHero.id_post,superHero.fk_usuario,superHero.fk_categoria,superHero.publicacion,superHero.imagen,superHero.fecha,this.likes)
                 txt_publicacion.text = superHero.publicacion
                 txt_likes.text = "$likes doubts"
                 txt_nombreUusario.text = "${superHero.usuario_nombre} ${superHero.usuario_apellidos}"
@@ -99,4 +117,29 @@ class PostCategoriaAdapter(val context: Callback<List<tbl_publicaciones>>, var L
     override fun getItemCount(): Int {
         return LISTA.size
     }
+
+
+    private fun Like(user: tbl_post){
+
+        val service: PostInterface =  RestEngine.getRestEngine().create(PostInterface::class.java)
+        val result: Call<Int> = service.saveUsuarios(user)
+
+        result.enqueue(object: Callback<Int>{
+            override fun onFailure(call: Call<Int>, t: Throwable) {
+                //Toast.makeText(this,"Error",Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                //Toast.makeText(this@HomeFragment,"OK",Toast.LENGTH_LONG).show()
+
+                // showHome(response.body().toString())
+
+            }
+        })
+    }
+
+
+
+
+
 }

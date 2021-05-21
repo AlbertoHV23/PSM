@@ -18,6 +18,7 @@ class CategoriesAdapter(val context: Context, var LISTA:List<tbl_categorias>): R
         private var Categoria:String = ""
         private var id_categoia:Int = 0
 
+
         fun render(superHero: tbl_categorias) {
             var txt_nombre:TextView = view?.findViewById(R.id.txt_ListaCategoria)
             var txt_semestre:TextView = view?.findViewById(R.id.txt_listaSemestre)

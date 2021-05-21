@@ -221,9 +221,7 @@ class HomeFragment : Fragment() {
             }
 
             override fun onResponse(call: Call<Int>, response: Response<Int>) {
-                //Toast.makeText(this@HomeFragment,"OK",Toast.LENGTH_LONG).show()
-
-               // showHome(response.body().toString())
+                getPublicaciones()
 
             }
         })

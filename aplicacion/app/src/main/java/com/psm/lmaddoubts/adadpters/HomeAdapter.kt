@@ -154,7 +154,6 @@ class HomeAdapter(val context: Context, var LISTA:List<tbl_publicaciones>): Recy
         activityIntent.putExtra("ID_POST",post.id_post.toString())
         activityIntent.putExtra("PUBLICACION", post.publicacion)
         context.startActivity(activityIntent)
-        context.startActivity(activityIntent)
 
     }
 }
