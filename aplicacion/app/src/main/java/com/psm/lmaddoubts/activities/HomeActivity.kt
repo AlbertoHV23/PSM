@@ -57,7 +57,7 @@ class HomeActivity : AppCompatActivity() {
 
             USUARIOS = tbl_usuario(0, pref.getNombre().toString(),pref.getApellido().toString(),pref.getEmail().toString(),pref.getPassword().toString(),null)
 
-
+            println(pref.getIdUsuario())
         }
 
 
