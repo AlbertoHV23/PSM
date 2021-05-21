@@ -136,37 +136,6 @@ class HomeFragment : Fragment() {
 
     }
 
-    //OBTENER USUARIOS
-    private fun getPost() {
-        val service: PostInterface =  RestEngine.getRestEngine().create(PostInterface::class.java)
-        val result: Call<List<tbl_post>> = service.getPosts()
-
-        result.enqueue(object: Callback<List<tbl_post>> {
-
-            override fun onFailure(call: Call<List<tbl_post>>, t: Throwable){
-                //  Toast.makeText(this@HomeFragment,"Error", Toast.LENGTH_LONG).show()
-            }
-
-            override fun onResponse(call: Call<List<tbl_post>>, response: Response<List<tbl_post>>) {
-                val arrayItems =  response.body()
-                if (arrayItems != null) {
-                    LISTAPOSTS = arrayItems
-
-                    getpublicaciones(arrayItems)
-                  //  adapter = HomeAdapter(context2!!, arrayItems)
-                    rvChat.adapter = adapter
-
-                }
-
-
-            }
-        })
-
-    }
-
-    fun getpublicaciones(item:List<tbl_post>){
-       this.LISTAPOSTS = item
-    }
 
     private fun filemanager(){
         //ABRE LA VENTA DEL FILENAMAGER PARA SELECCIONAR LA IMAGEN

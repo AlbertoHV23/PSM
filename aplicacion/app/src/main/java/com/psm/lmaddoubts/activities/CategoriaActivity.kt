@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.psm.lmaddoubts.Interface.PostInterface
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.R
+import com.psm.lmaddoubts.adadpters.HomeAdapter
 import com.psm.lmaddoubts.adadpters.PostCategoriaAdapter
 import com.psm.lmaddoubts.models.tbl_post
 import com.psm.lmaddoubts.models.tbl_publicaciones
@@ -19,7 +20,7 @@ import retrofit2.Response
 class CategoriaActivity : AppCompatActivity() {
 
     private var context2: Context? = null
-    private var adapter: PostCategoriaAdapter? = null
+    private var adapter: HomeAdapter? = null
     var LISTAPublicaciones:List<tbl_publicaciones> = emptyList()
     lateinit var rvChat: RecyclerView
 
@@ -63,10 +64,7 @@ class CategoriaActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<tbl_publicaciones>>, response: Response<List<tbl_publicaciones>>) {
                 val arrayItems =  response.body()
                 if (arrayItems != null) {
-                    //LISTAPublicaciones = arrayItems
-                    // getpublicaciones(arrayItems)
-                        println("ff" + response.body())
-                    adapter = PostCategoriaAdapter(this, arrayItems)
+                    adapter = HomeAdapter(this@CategoriaActivity, arrayItems)
                     rvChat.adapter = adapter
 
                 }
