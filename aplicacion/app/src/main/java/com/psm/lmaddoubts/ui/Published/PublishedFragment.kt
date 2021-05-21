@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,8 +12,6 @@ import com.psm.lmaddoubts.Interface.PostInterface
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.R
 import com.psm.lmaddoubts.adadpters.HomeAdapter
-import com.psm.lmaddoubts.adadpters.PostCategoriaAdapter
-import com.psm.lmaddoubts.models.prefs
 import com.psm.lmaddoubts.models.sharedPreferences.Companion.pref
 import com.psm.lmaddoubts.models.tbl_publicaciones
 import retrofit2.Call
@@ -34,7 +30,7 @@ class PublishedFragment : Fragment() {
         rvChat=root.findViewById(R.id.rv_mypost)
         rvChat.layoutManager = LinearLayoutManager(context)
 
-        var id = pref.getName()
+        var id = pref.getIdUsuario()
         if (id != null) {
             fk_usuario = id.toInt()
         }

@@ -15,6 +15,8 @@ import androidx.appcompat.app.AlertDialog
 import com.psm.lmaddoubts.R
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.Interface.UserService
+import com.psm.lmaddoubts.models.prefs
+import com.psm.lmaddoubts.models.sharedPreferences.Companion.pref
 import com.psm.lmaddoubts.models.tbl_usuario
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,6 +29,7 @@ class SingInActivity : AppCompatActivity() {
     var imgArray:ByteArray? =  null
     lateinit var USUARIOS:List<tbl_usuario>
     private val fileResult = 1
+    lateinit var user:tbl_usuario
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -44,7 +47,9 @@ class SingInActivity : AppCompatActivity() {
         val txt_loginPass: EditText = findViewById(R.id.txt_loginPass)
         imageUI =  findViewById(R.id.imgUI)
 
-       // getUsers()
+
+
+        // getUsers()
 
 
 
@@ -57,7 +62,7 @@ class SingInActivity : AppCompatActivity() {
                 ShowAlert("Error", "Empty requirements")
             }
             else{
-                var user:tbl_usuario = tbl_usuario(0,
+             user  = tbl_usuario(0,
                         txt_name.text.toString(),
                         txt_apellidos.text.toString(),
                         txt_loginEmail.text.toString(),
@@ -194,6 +199,12 @@ class SingInActivity : AppCompatActivity() {
     private  fun showHome(id_user:String){
         val intent:Intent = Intent(this, HomeActivity::class.java)
         intent.putExtra("ID_USUARIO",id_user)
+        pref.saveIdUsuario(id_user)
+        pref.saveNombre(user.nombre.toString())
+        pref.saveapellido(user.apellidos.toString())
+        pref.saveCorreo(user.email.toString())
+        pref.savePasseord(user.contrasena.toString())
+
         startActivity(intent)
         finish()
     }

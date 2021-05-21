@@ -16,16 +16,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.psm.lmaddoubts.Interface.PostInterface
 import com.psm.lmaddoubts.R
 import com.psm.lmaddoubts.Interface.RestEngine
-import com.psm.lmaddoubts.Interface.UserService
 import com.psm.lmaddoubts.adadpters.HomeAdapter
 import com.psm.lmaddoubts.models.sharedPreferences.Companion.pref
 import com.psm.lmaddoubts.models.tbl_post
 import com.psm.lmaddoubts.models.tbl_publicaciones
-import com.psm.lmaddoubts.models.tbl_usuario
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 class HomeFragment : Fragment() {
 
@@ -48,7 +45,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         getPublicaciones()
         var root =  inflater.inflate(R.layout.fragment_home, container, false)
-        var id_user = pref.getName()
+        var id_user = pref.getIdUsuario()
         if (id_user != null) {
             id_usuario_int = id_user.toInt()
 

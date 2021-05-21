@@ -1,5 +1,7 @@
 package com.psm.lmaddoubts.activities
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
@@ -15,14 +17,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.psm.lmaddoubts.Interface.ImageUtilities
 import com.psm.lmaddoubts.R
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.Interface.UserService
-import com.psm.lmaddoubts.models.prefs
 import com.psm.lmaddoubts.models.sharedPreferences.Companion.pref
 import com.psm.lmaddoubts.models.tbl_usuario
 import retrofit2.Call
@@ -40,13 +39,31 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        var id_user = intent.getStringExtra("ID_USUARIO")
-        if (id_user != null) {
-            id_usuario_int = id_user.toInt()
-            getUser(id_usuario_int)
+
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+
+        if (networkInfo != null && networkInfo.isConnected) {
+            var id_user = intent.getStringExtra("ID_USUARIO")
+            if (id_user != null) {
+                id_usuario_int = id_user.toInt()
+                getUser(id_usuario_int)
+            }
+            pref.saveIdUsuario(id_user.toString())
+
+        }
+        else {
+
+            USUARIOS = tbl_usuario(0, pref.getNombre().toString(),pref.getApellido().toString(),pref.getEmail().toString(),pref.getPassword().toString(),null)
+
+
         }
 
-        pref.saveName(id_user.toString())
+
+
+
+
 
 
 
@@ -92,8 +109,13 @@ class HomeActivity : AppCompatActivity() {
         var imgarray:ImageView =  findViewById(R.id.imageView3)
         names.text = "${USUARIOS.nombre}  ${USUARIOS.apellidos}"
         emails.text = "${USUARIOS.email}  "
-        var byteArray =  Base64.getDecoder().decode(USUARIOS.avatar)
-        imgarray!!.setImageBitmap(ImageUtilities.getBitMapFromByteArray(byteArray))
+
+        if (USUARIOS.avatar != null){
+            var byteArray =  Base64.getDecoder().decode(USUARIOS.avatar)
+            imgarray!!.setImageBitmap(ImageUtilities.getBitMapFromByteArray(byteArray))
+        }
+
+
 
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
