@@ -115,6 +115,7 @@ class Respuesta
         } catch (PDOException $exc) {
             return [];
         }
+
     }
 
     function RespuestasPorPost($idPost)
@@ -122,7 +123,8 @@ class Respuesta
         $respuestas = [];
         try {
             $sentencia = $this->db->prepare("SELECT id_respuesta,fk_usuario,fk_post,respuesta,fecha,
-            tbl_usuario.nombre AS 'nombre_usuario'
+            tbl_usuario.nombre AS 'nombre_usuario',
+            tbl_usuario.apellidos AS 'apellidos_usuario'
             FROM tbl_respuesta
             INNER JOIN tbl_usuario on tbl_respuesta.fk_usuario = tbl_usuario.id_usuario WHERE fk_post = ?");
             $sentencia->bindParam(1, $idPost['id_post']);
@@ -134,7 +136,7 @@ class Respuesta
                 $respuesta->fk_post = $row['fk_post'];
                 $respuesta->respuesta = $row['respuesta'];
                 $respuesta->fecha = $row['fecha'];
-                $respuesta->nombre_usuario = $row['nombre_usuario'];
+                $respuesta->nombre_usuario = $row['nombre_usuario'].' '.$row['apellidos_usuario'];
                 array_push($respuestas, $respuesta);
             }
             return $respuestas;
@@ -143,7 +145,5 @@ class Respuesta
             return [];
         }
     }
-
-    
 
 }
