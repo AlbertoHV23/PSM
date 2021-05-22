@@ -3,6 +3,7 @@ package com.psm.lmaddoubts.ui.home
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +19,8 @@ import com.psm.lmaddoubts.Interface.PostInterface
 import com.psm.lmaddoubts.R
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.adadpters.HomeAdapter
-import com.psm.lmaddoubts.models.sharedPreferences.Companion.pref
+import com.psm.lmaddoubts.models.UserAplication
+import com.psm.lmaddoubts.models.UserAplication.Companion.pref
 import com.psm.lmaddoubts.models.tbl_post
 import com.psm.lmaddoubts.models.tbl_publicaciones
 import retrofit2.Call
@@ -50,6 +53,8 @@ class HomeFragment : Fragment() {
             id_usuario_int = id_user.toInt()
 
         }
+
+
 
         val spinner: Spinner = root.findViewById(R.id.combo)
 
@@ -92,6 +97,19 @@ class HomeFragment : Fragment() {
             Toast.makeText(this.context2, "Posted correctly", Toast.LENGTH_SHORT).show()
             saveUser(post)
         }
+
+
+        var wifi = pref.getWifi()
+        println(wifi)
+
+        if(wifi == "False"){
+            //Aqui mandar los post
+            var sinwifi = UserAplication.dbHelper.getListOfAlbum()
+            println(sinwifi)
+        }
+
+
+
 
 
 

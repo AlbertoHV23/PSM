@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.psm.lmaddoubts.Interface.RespuestasInterface
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.adadpters.RespuestasAdapter
-import com.psm.lmaddoubts.models.sharedPreferences.Companion.pref
+import com.psm.lmaddoubts.models.UserAplication.Companion.pref
 import com.psm.lmaddoubts.models.tbl_respuestas
 import com.psm.lmaddoubts.models.tbl_respuestasId
 import retrofit2.Call

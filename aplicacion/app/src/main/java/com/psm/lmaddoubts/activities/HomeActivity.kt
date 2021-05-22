@@ -22,7 +22,9 @@ import com.psm.lmaddoubts.Interface.ImageUtilities
 import com.psm.lmaddoubts.R
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.Interface.UserService
-import com.psm.lmaddoubts.models.sharedPreferences.Companion.pref
+import com.psm.lmaddoubts.models.UserAplication
+import com.psm.lmaddoubts.models.UserAplication.Companion.dbHelper
+import com.psm.lmaddoubts.models.UserAplication.Companion.pref
 import com.psm.lmaddoubts.models.tbl_usuario
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,11 +42,20 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+
+        var i = UserAplication.dbHelper.getListOfAlbum()
+        println(i)
+
+
+
+
+
         val connectivityManager =
             getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
 
         if (networkInfo != null && networkInfo.isConnected) {
+            pref.setWifi("True")
             var id_user = intent.getStringExtra("ID_USUARIO")
             if (id_user != null) {
                 id_usuario_int = id_user.toInt()
@@ -54,7 +65,7 @@ class HomeActivity : AppCompatActivity() {
 
         }
         else {
-
+            pref.setWifi("False")
             USUARIOS = tbl_usuario(0, pref.getNombre().toString(),pref.getApellido().toString(),pref.getEmail().toString(),pref.getPassword().toString(),null)
 
             println(pref.getIdUsuario())

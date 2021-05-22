@@ -8,10 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import com.psm.lmaddoubts.activities.HomeActivity
 import com.psm.lmaddoubts.activities.LoginActivity
-import com.psm.lmaddoubts.models.prefs
-import com.psm.lmaddoubts.models.sharedPreferences.Companion.pref
+import com.psm.lmaddoubts.models.UserAplication.Companion.pref
 
 
 class LogOutFragment : Fragment() {

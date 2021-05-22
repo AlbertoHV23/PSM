@@ -12,7 +12,7 @@ import com.psm.lmaddoubts.Interface.PostInterface
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.R
 import com.psm.lmaddoubts.adadpters.HomeAdapter
-import com.psm.lmaddoubts.models.sharedPreferences.Companion.pref
+import com.psm.lmaddoubts.models.UserAplication.Companion.pref
 import com.psm.lmaddoubts.models.tbl_publicaciones
 import retrofit2.Call
 import retrofit2.Callback
