@@ -1,6 +1,8 @@
 package com.psm.lmaddoubts.activities
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -46,6 +48,19 @@ class LoginActivity : AppCompatActivity() {
         txt_email = findViewById(R.id.txt_loginEmail)
         txt_pass = findViewById(R.id.txt_loginPass)
 
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+
+        if (networkInfo != null && networkInfo.isConnected) {
+            pref.setWifi("True")
+
+
+        }
+        else {
+            pref.setWifi("False")
+
+        }
 
 
 
@@ -53,15 +68,26 @@ class LoginActivity : AppCompatActivity() {
             showignIn()
         }
 
-        btn_logear.setOnClickListener(){
-           ValidarRegistro()
-            var u = UserAplication.dbHelper.getAlbum(txt_pass.text.toString())
-            var i = UserAplication.dbHelper.getListOfAlbum()
-            println("uno " + i)
-            println(u)
+        btn_logear.setOnClickListener() {
+            var wifi = pref.getWifi()
 
-            //saveUser()
+            if (wifi !="False"){
+                ValidarRegistro()
+            }
+            else{
+                var i = UserAplication.dbHelper.getAlbum(txt_email.text.toString())
+                val intent:Intent = Intent(this, HomeActivity::class.java)
+                if (i != null) {
+                    pref.saveIdUsuario(i.id_usuario.toString())
+                    pref.saveNombre(i.nombre.toString())
+                    pref.saveapellido(i.apellidos.toString())
+                    pref.saveCorreo(i.email.toString())
+                    pref.savePasseord(i.contrasena.toString())
+                }
 
+                startActivity(intent)
+                finish()
+            }
 
 
         }
@@ -92,11 +118,6 @@ class LoginActivity : AppCompatActivity() {
             UserLogin(email, password)
 
 
-
-
-
-            //showHome()
-
         }
         else{
             ShowAlert("Error", "Empty requirements")
@@ -122,7 +143,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun UserLogin(email: String, pass: String){
 
-        var user: tbl_usuario = tbl_usuario(null, null, null, email, pass, null)
+        var user= tbl_usuario(null, null, null, email, pass, null)
 
 
 
@@ -155,5 +176,22 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+
+        if (networkInfo != null && networkInfo.isConnected) {
+            pref.setWifi("True")
+
+
+        }
+        else {
+            pref.setWifi("False")
+
+        }
+
+    }
 
 }

@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import android.widget.Toast
+import com.psm.lmaddoubts.models.tbl_publicaciones
 import com.psm.lmaddoubts.models.tbl_usuario
 import java.lang.Exception
 
@@ -30,13 +31,13 @@ class DataDbHelper (var context: Context): SQLiteOpenHelper(context,SetDB.DB_NAM
                     SetDB.TBL_POST.COL_FKUSUARIO + " INTEGER," +
                     SetDB.TBL_POST.COL_FKCATEGORIA + " INTEGER," +
                     SetDB.TBL_POST.COL_PUBLICACION + "  VARCHAR(256)," +
+                    SetDB.TBL_POST.COL_IMAGEN + " BLOB," +
                     SetDB.TBL_POST.COL_FECHA + "  VARCHAR(256)," +
                     SetDB.TBL_POST.COL_LIKES + " INTEGER," +
                     SetDB.TBL_POST.COL_NOMBREUSURIO + "  VARCHAR(256)," +
                     SetDB.TBL_POST.COL_APELLIDOUSUARIO + "  VARCHAR(256)," +
                     SetDB.TBL_POST.COL_NOMBRECATEGORIA + "  VARCHAR(256)," +
-                    SetDB.TBL_POST.COL_IMAGEN + " BLOB," +
-                    SetDB.TBL_POST.COL_IMAGEN + " BLOB)"
+                    SetDB.TBL_POST.COL_IMAGENPERFIL + " BLOB)"
 
             db?.execSQL(createGenreTable)
 
@@ -145,7 +146,7 @@ class DataDbHelper (var context: Context): SQLiteOpenHelper(context,SetDB.DB_NAM
             SetDB.TBL_USUARIO.COL_PASSWORD,
             SetDB.TBL_USUARIO.COL_IMAGEN)
 
-        val where:String =  SetDB.TBL_USUARIO.COL_PASSWORD + " = " + "$email"
+        val where:String =  SetDB.TBL_USUARIO.COL_EMAIL  + " = '${email}'"
         val data =  dataBase.query(
             SetDB.TBL_USUARIO.TABLE_NAME,
             columns,
@@ -153,7 +154,7 @@ class DataDbHelper (var context: Context): SQLiteOpenHelper(context,SetDB.DB_NAM
             null,
             null,
             null,
-            SetDB.TBL_USUARIO.COL_ID + " ASC")
+            null)
 
         if(data.moveToFirst()){
             album = tbl_usuario()
@@ -169,6 +170,119 @@ class DataDbHelper (var context: Context): SQLiteOpenHelper(context,SetDB.DB_NAM
         data.close()
         return album
     }
+
+
+
+
+    public fun insertPost(usuario:tbl_publicaciones):Boolean{
+
+        val dataBase:SQLiteDatabase = this.writableDatabase
+        val values: ContentValues = ContentValues()
+        var boolResult:Boolean =  true
+
+        values.put(SetDB.TBL_POST.COL_FKUSUARIO,usuario.fk_usuario)
+        values.put(SetDB.TBL_POST.COL_FKCATEGORIA,usuario.fk_categoria)
+        values.put(SetDB.TBL_POST.COL_PUBLICACION,usuario.publicacion)
+        values.put(SetDB.TBL_POST.COL_IMAGEN,usuario.imagen)
+        values.put(SetDB.TBL_POST.COL_FECHA,usuario.fecha)
+        values.put(SetDB.TBL_POST.COL_LIKES,usuario.likes)
+        values.put(SetDB.TBL_POST.COL_NOMBREUSURIO,usuario.usuario_nombre)
+        values.put(SetDB.TBL_POST.COL_APELLIDOUSUARIO,usuario.usuario_apellidos)
+        values.put(SetDB.TBL_POST.COL_NOMBRECATEGORIA,usuario.categoria_nombre)
+        values.put(SetDB.TBL_POST.COL_IMAGENPERFIL,usuario.imagen_perfil)
+
+
+        try {
+            val result =  dataBase.insert(SetDB.TBL_POST.TABLE_NAME, null, values)
+
+            if (result == (0).toLong()) {
+                Toast.makeText(this.context, "Failed", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                //Toast.makeText(this.context, "Success", Toast.LENGTH_SHORT).show()
+            }
+
+        }catch (e: Exception){
+            Log.e("Execption", e.toString())
+            boolResult =  false
+        }
+
+        dataBase.close()
+
+        return boolResult
+    }
+
+    public fun getListaPublicaciones():MutableList<tbl_publicaciones>{
+        val List:MutableList<tbl_publicaciones> = ArrayList()
+
+        val dataBase:SQLiteDatabase = this.writableDatabase
+
+        //QUE COLUMNAS QUEREMOS QUE ESTE EN EL SELECT
+        val columns:Array<String> =  arrayOf(
+                    SetDB.TBL_POST.COL_ID,
+                    SetDB.TBL_POST.COL_FKUSUARIO,
+                    SetDB.TBL_POST.COL_FKCATEGORIA,
+                    SetDB.TBL_POST.COL_PUBLICACION,
+                    SetDB.TBL_POST.COL_IMAGEN,
+                    SetDB.TBL_POST.COL_FECHA,
+                    SetDB.TBL_POST.COL_LIKES,
+                    SetDB.TBL_POST.COL_NOMBREUSURIO,
+                    SetDB.TBL_POST.COL_APELLIDOUSUARIO,
+                    SetDB.TBL_POST.COL_NOMBRECATEGORIA,
+                    SetDB.TBL_POST.COL_IMAGENPERFIL)
+
+        val data =  dataBase.query(
+            SetDB.TBL_POST.TABLE_NAME,
+            columns,
+            null,
+            null,
+            null,
+            null,
+            null)
+
+        // SI NO TIENE DATOS DEVUELVE FALSO
+        //SE MUEVE A LA PRIMERA POSICION DE LOS DATOS
+        if(data.moveToFirst()){
+
+            do{
+                var album:tbl_publicaciones = tbl_publicaciones(
+                    data.getString(data.getColumnIndex(SetDB.TBL_POST.COL_ID)).toInt(),
+                    data.getString(data.getColumnIndex(SetDB.TBL_POST.COL_FKUSUARIO)).toInt(),
+                    data.getString(data.getColumnIndex(SetDB.TBL_POST.COL_FKCATEGORIA)).toInt(),
+                    data.getString(data.getColumnIndex(SetDB.TBL_POST.COL_PUBLICACION)).toString(),
+                  null,
+                    data.getString(data.getColumnIndex(SetDB.TBL_POST.COL_FECHA)).toString(),
+                    data.getString(data.getColumnIndex(SetDB.TBL_POST.COL_LIKES)).toInt(),
+                    data.getString(data.getColumnIndex(SetDB.TBL_POST.COL_NOMBREUSURIO)).toString(),
+                    data.getString(data.getColumnIndex(SetDB.TBL_POST.COL_APELLIDOUSUARIO)).toString(),
+                    data.getString(data.getColumnIndex(SetDB.TBL_POST.COL_NOMBRECATEGORIA)).toString(),
+                    data.getString(data.getColumnIndex(SetDB.TBL_POST.COL_IMAGENPERFIL)).toString())
+
+                List.add(album)
+
+                //SE MUEVE A LA SIGUIENTE POSICION, REGRESA FALSO SI SE PASO DE LA CANTIDAD DE DATOS
+            }while (data.moveToNext())
+
+        }
+        return  List
+    }
+
+
+    public fun deletePosts():Boolean{
+        val db = this.writableDatabase
+        var boolResult:Boolean =  false
+        try{
+            db.delete(SetDB.TBL_POST.TABLE_NAME, null, null);
+
+
+        }catch (e: Exception){
+
+            Log.e("Execption", e.toString())
+        }
+
+        return  boolResult
+    }
+
 
 
 }

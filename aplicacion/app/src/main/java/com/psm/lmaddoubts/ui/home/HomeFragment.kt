@@ -29,10 +29,7 @@ import retrofit2.Response
 
 class HomeFragment : Fragment() {
 
-    var grupos :List<tbl_post> = listOf(
-        tbl_post(1,1,1,"Hola","ssd","sdasd",0),
-            tbl_post(1,1,1,"Adios","ssd","sdasd",0)
-    )
+
     private var context2: Context? = null
     private var adapter: HomeAdapter? = null
     var LISTAPOSTS:List<tbl_post> = emptyList()
@@ -41,18 +38,24 @@ class HomeFragment : Fragment() {
     lateinit var rvChat: RecyclerView
     private val fileResult = 1
     var id_usuario_int = 0
+    var LISTAPublicacionesSINWIFI:List<tbl_publicaciones> = emptyList()
+
 
 
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        getPublicaciones()
+
         var root =  inflater.inflate(R.layout.fragment_home, container, false)
         var id_user = pref.getIdUsuario()
         if (id_user != null) {
             id_usuario_int = id_user.toInt()
 
+
         }
+
+
+
 
 
 
@@ -100,12 +103,13 @@ class HomeFragment : Fragment() {
 
 
         var wifi = pref.getWifi()
-        println(wifi)
 
         if(wifi == "False"){
-            //Aqui mandar los post
-            var sinwifi = UserAplication.dbHelper.getListOfAlbum()
-            println(sinwifi)
+            nowifi()
+
+        }
+        else{
+            getPublicaciones()
         }
 
 
@@ -135,9 +139,11 @@ class HomeFragment : Fragment() {
 
             override fun onResponse(call: Call<List<tbl_publicaciones>>, response: Response<List<tbl_publicaciones>>) {
                 val arrayItems =  response.body()
+
                 if (arrayItems != null) {
                     LISTAPublicaciones = arrayItems
-                    println(arrayItems.size)
+
+                    setPosts(arrayItems)
 
                     adapter = HomeAdapter(context2!!, arrayItems)
                     rvChat.adapter = adapter
@@ -173,11 +179,11 @@ class HomeFragment : Fragment() {
                 if (clipData != null){
                     for (i in 0 until clipData.itemCount) {
                         val uri = clipData.getItemAt(i).uri
-                        uri?.let { println(it) }
+                        uri?.let {  }
                     }
                 }else {
                     val uri = data.data
-                    uri?.let {  println(it) }
+                    uri?.let {   }
                 }
 
             }
@@ -210,6 +216,27 @@ class HomeFragment : Fragment() {
             }
         })
     }
+
+
+    fun setPosts(Posts:List<tbl_publicaciones>){
+        UserAplication.dbHelper.deletePosts()
+        for (post in Posts){
+            UserAplication.dbHelper.insertPost(post)
+        }
+
+
+
+
+    }
+
+    fun nowifi(){
+        LISTAPublicacionesSINWIFI = UserAplication.dbHelper.getListaPublicaciones()
+        adapter = HomeAdapter(this.context2!!,LISTAPublicacionesSINWIFI)
+        rvChat.adapter = adapter
+    }
+
+
+
 
 
 }

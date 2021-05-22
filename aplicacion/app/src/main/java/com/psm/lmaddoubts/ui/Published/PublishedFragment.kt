@@ -30,12 +30,23 @@ class PublishedFragment : Fragment() {
         rvChat=root.findViewById(R.id.rv_mypost)
         rvChat.layoutManager = LinearLayoutManager(context)
 
-        var id = pref.getIdUsuario()
-        if (id != null) {
-            fk_usuario = id.toInt()
+        var wifi = pref.getWifi()
+
+        if (wifi == "False"){
+
+        }
+        else{
+            var id = pref.getIdUsuario()
+            if (id != null) {
+                fk_usuario = id.toInt()
+            }
+
+            getMisPublicaciones()
         }
 
-        getMisPublicaciones()
+
+
+
 
 
         return root

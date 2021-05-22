@@ -42,14 +42,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-
-        var i = UserAplication.dbHelper.getListOfAlbum()
-        println(i)
-
-
-
-
-
         val connectivityManager =
             getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
@@ -57,9 +49,13 @@ class HomeActivity : AppCompatActivity() {
         if (networkInfo != null && networkInfo.isConnected) {
             pref.setWifi("True")
             var id_user = intent.getStringExtra("ID_USUARIO")
+            println(id_user)
             if (id_user != null) {
                 id_usuario_int = id_user.toInt()
                 getUser(id_usuario_int)
+            }
+            else{
+                id_usuario_int = pref.getIdUsuario()?.toInt() ?: 0
             }
             pref.saveIdUsuario(id_user.toString())
 
@@ -118,12 +114,17 @@ class HomeActivity : AppCompatActivity() {
         val names = findViewById<TextView>(R.id.nav_username)
         val emails = findViewById<TextView>(R.id.nav_emails)
         var imgarray:ImageView =  findViewById(R.id.imageView3)
-        names.text = "${USUARIOS.nombre}  ${USUARIOS.apellidos}"
-        emails.text = "${USUARIOS.email}  "
 
-        if (USUARIOS.avatar != null){
-            var byteArray =  Base64.getDecoder().decode(USUARIOS.avatar)
-            imgarray!!.setImageBitmap(ImageUtilities.getBitMapFromByteArray(byteArray))
+        if(USUARIOS != null){
+            names.text = "${USUARIOS.nombre}  ${USUARIOS.apellidos}"
+            emails.text = "${USUARIOS.email}  "
+
+            if (USUARIOS.avatar != null){
+                var byteArray =  Base64.getDecoder().decode(USUARIOS.avatar)
+                imgarray!!.setImageBitmap(ImageUtilities.getBitMapFromByteArray(byteArray))
+            }
+
+
         }
 
 
@@ -147,6 +148,7 @@ class HomeActivity : AppCompatActivity() {
                 var byteArray: ByteArray? = null
                 val item = response.body()
                 if (item != null) {
+                    //Aqui se rompe
                     USUARIOS = item.last()
                     val strImage:String =  item[0].avatar!!.replace("data:image/png;base64,","")
                     item[0].avatar = strImage
