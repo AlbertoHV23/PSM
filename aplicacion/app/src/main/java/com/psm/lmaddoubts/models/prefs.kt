@@ -9,6 +9,7 @@ class prefs(val context: Context) {
     val SHARED_SURNAME = "surname"
     val SHARED_EMAIL = "email"
     val SHARED_PASSWORD = "password"
+    val WIFI = "False"
     val SHARED_vip = "vip"
 
     val storage = context.getSharedPreferences(SHARED_NAME,0)
@@ -31,6 +32,10 @@ class prefs(val context: Context) {
         storage.edit().putString(SHARED_PASSWORD,name).apply()
     }
 
+    fun setWifi(name:String){
+        storage.edit().putString(WIFI,name).apply()
+    }
+
     fun getIdUsuario(): String? {
         return storage.getString(SHARED_ID,"")!!
     }
@@ -49,6 +54,10 @@ class prefs(val context: Context) {
 
     fun getPassword(): String? {
         return storage.getString(SHARED_PASSWORD,"")!!
+    }
+
+    fun getWifi(): String? {
+        return storage.getString(WIFI,"")!!
     }
 
 

@@ -15,8 +15,8 @@ import androidx.appcompat.app.AlertDialog
 import com.psm.lmaddoubts.R
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.Interface.UserService
-import com.psm.lmaddoubts.models.prefs
-import com.psm.lmaddoubts.models.sharedPreferences.Companion.pref
+import com.psm.lmaddoubts.models.UserAplication
+import com.psm.lmaddoubts.models.UserAplication.Companion.pref
 import com.psm.lmaddoubts.models.tbl_usuario
 import retrofit2.Call
 import retrofit2.Callback
@@ -178,6 +178,8 @@ class SingInActivity : AppCompatActivity() {
         // SI TU SERVICIO POST REQUIERE DOS PARAMETROS HACER UN OBJECTO CON ESOS DOS PARAMETROS
         user.avatar = strEncodeImage
 
+        UserAplication.dbHelper.insertAlbum(user)
+
 
         val service: UserService =  RestEngine.getRestEngine().create(UserService::class.java)
         val result: Call<Int> = service.saveUsuarios(user)
@@ -191,6 +193,7 @@ class SingInActivity : AppCompatActivity() {
                 Toast.makeText(this@SingInActivity,"OK",Toast.LENGTH_LONG).show()
 
                 showHome(response.body().toString())
+
 
             }
         })

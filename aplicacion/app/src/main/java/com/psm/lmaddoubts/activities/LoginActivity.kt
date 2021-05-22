@@ -1,8 +1,6 @@
 package com.psm.lmaddoubts.activities
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -12,7 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.psm.lmaddoubts.Interface.RestEngine
 import com.psm.lmaddoubts.Interface.UserService
 import com.psm.lmaddoubts.R
-import com.psm.lmaddoubts.models.sharedPreferences.Companion.pref
+import com.psm.lmaddoubts.models.UserAplication
+import com.psm.lmaddoubts.models.UserAplication.Companion.pref
 import com.psm.lmaddoubts.models.tbl_usuario
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,7 +54,11 @@ class LoginActivity : AppCompatActivity() {
         }
 
         btn_logear.setOnClickListener(){
-            ValidarRegistro()
+           ValidarRegistro()
+            var u = UserAplication.dbHelper.getAlbum(txt_pass.text.toString())
+            var i = UserAplication.dbHelper.getListOfAlbum()
+            println("uno " + i)
+            println(u)
 
             //saveUser()
 
@@ -87,6 +90,9 @@ class LoginActivity : AppCompatActivity() {
             email = txt_email.text.toString()
             password = txt_pass.text.toString()
             UserLogin(email, password)
+
+
+
 
 
             //showHome()
